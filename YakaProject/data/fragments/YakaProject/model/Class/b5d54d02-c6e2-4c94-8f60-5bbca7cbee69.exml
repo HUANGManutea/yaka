@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="HashMap&lt;String,Ident&gt;" version="3">
+  <DEPS>
+    <ID name="HashMap&lt;String,Ident&gt;" mc="Class" uid="b5d54d02-c6e2-4c94-8f60-5bbca7cbee69"/>
+  </DEPS>
+  <OBJECT>
+    <ID name="HashMap&lt;String,Ident&gt;" mc="Class" uid="b5d54d02-c6e2-4c94-8f60-5bbca7cbee69"/>
+    <PID name="Auxiliaire" mc="Package" uid="f15f9d2e-f3b0-4287-a02c-60f95fe1fecf"/>
+    <ATTRIBUTES>
+      <ATT name="IsActive">false</ATT>
+      <ATT name="IsMain">false</ATT>
+      <ATT name="IsElementary">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[HashMap<String,Ident>]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES></DEPENDENCIES>
+  </OBJECT>
+</EXT>

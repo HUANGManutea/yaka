@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Type (Enum)" version="3">
+  <DEPS>
+    <ID name="Type (Enum)" mc="Class" uid="00ac3939-8ddb-462b-868b-ec4dbe2c1cdd"/>
+  </DEPS>
+  <OBJECT>
+    <ID name="Type (Enum)" mc="Class" uid="00ac3939-8ddb-462b-868b-ec4dbe2c1cdd"/>
+    <PID name="Constante" mc="Class" uid="5f81dbd4-4a4b-452a-89e9-9016ddfbb952"/>
+    <ATTRIBUTES>
+      <ATT name="IsActive">false</ATT>
+      <ATT name="IsMain">false</ATT>
+      <ATT name="IsElementary">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Type (Enum)]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES></DEPENDENCIES>
+  </OBJECT>
+</EXT>

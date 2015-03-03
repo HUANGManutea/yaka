@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="YakaProject" version="3">
+  <DEPS>
+    <ID name="YakaProject" mc="PropertyContainer" uid="0801ce2b-9ae6-4b3f-8c47-70631e332b45"/>
+  </DEPS>
+  <OBJECT>
+    <ID name="YakaProject" mc="PropertyContainer" uid="0801ce2b-9ae6-4b3f-8c47-70631e332b45"/>
+    <PID name="YakaProject" mc="AnalystProject" uid="82427b64-1416-44b7-b5df-f14e697cbe75"/>
+    <ATTRIBUTES>
+      <ATT name="Name"><![CDATA[YakaProject]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES></DEPENDENCIES>
+  </OBJECT>
+</EXT>

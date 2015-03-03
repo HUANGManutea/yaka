@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="YakaFiles" version="3">
+  <DEPS>
+    <ID name="YakaFiles" mc="Package" uid="4264dbab-78a9-4283-89ef-4fbb20cbe94f"/>
+    <COMPID name="Constante" mc="Class" uid="5f81dbd4-4a4b-452a-89e9-9016ddfbb952"/>
+    <COMPID name="Declaration" mc="Class" uid="fefd4bd9-6538-4969-9dfe-10269cab1a71"/>
+    <COMPID name="Expression" mc="Class" uid="1d3e3a30-5ea1-4f9d-816b-fa4b0d0ca9b7"/>
+    <COMPID name="IdConst" mc="Class" uid="763759ec-881d-4b05-bc8a-e687f4906ecc"/>
+    <COMPID name="IdVar" mc="Class" uid="8c7570e1-5724-4410-aa46-e433c418284c"/>
+    <COMPID name="Ident" mc="Class" uid="e68ebe65-7c5f-4c3a-9344-b381b7095faa"/>
+    <COMPID name="TabIdent" mc="Class" uid="96eae5a9-2327-47ac-938e-7800d0bda7f1"/>
+    <COMPID name="YVM" mc="Class" uid="20c104c2-fd78-4acf-81ac-c7474ddd5e13"/>
+    <COMPID name="YVMAsm" mc="Class" uid="dc245417-d638-4dbc-a58a-c059e9049438"/>
+    <COMPID name="Yaka" mc="Class" uid="8657b1c4-9d79-4f6d-a134-bb0f48bb7911"/>
+  </DEPS>
+  <OBJECT>
+    <ID name="YakaFiles" mc="Package" uid="4264dbab-78a9-4283-89ef-4fbb20cbe94f"/>
+    <PID name="yakaproject" mc="Package" uid="2aa92102-e89a-490d-a94c-21e57b6a24ae"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[YakaFiles]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="Ident" mc="Class" uid="e68ebe65-7c5f-4c3a-9344-b381b7095faa"/>
+        <COMPID name="IdVar" mc="Class" uid="8c7570e1-5724-4410-aa46-e433c418284c"/>
+        <COMPID name="IdConst" mc="Class" uid="763759ec-881d-4b05-bc8a-e687f4906ecc"/>
+        <COMPID name="Yaka" mc="Class" uid="8657b1c4-9d79-4f6d-a134-bb0f48bb7911"/>
+        <COMPID name="Constante" mc="Class" uid="5f81dbd4-4a4b-452a-89e9-9016ddfbb952"/>
+        <COMPID name="Declaration" mc="Class" uid="fefd4bd9-6538-4969-9dfe-10269cab1a71"/>
+        <COMPID name="Expression" mc="Class" uid="1d3e3a30-5ea1-4f9d-816b-fa4b0d0ca9b7"/>
+        <COMPID name="YVM" mc="Class" uid="20c104c2-fd78-4acf-81ac-c7474ddd5e13"/>
+        <COMPID name="YVMAsm" mc="Class" uid="dc245417-d638-4dbc-a58a-c059e9049438"/>
+        <COMPID name="TabIdent" mc="Class" uid="96eae5a9-2327-47ac-938e-7800d0bda7f1"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

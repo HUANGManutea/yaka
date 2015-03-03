@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Yaka" version="3">
+  <DEPS>
+    <ID name="Yaka" mc="Class" uid="8657b1c4-9d79-4f6d-a134-bb0f48bb7911"/>
+  </DEPS>
+  <OBJECT>
+    <ID name="Yaka" mc="Class" uid="8657b1c4-9d79-4f6d-a134-bb0f48bb7911"/>
+    <PID name="YakaFiles" mc="Package" uid="4264dbab-78a9-4283-89ef-4fbb20cbe94f"/>
+    <ATTRIBUTES>
+      <ATT name="IsActive">false</ATT>
+      <ATT name="IsMain">false</ATT>
+      <ATT name="IsElementary">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Yaka]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES></DEPENDENCIES>
+  </OBJECT>
+</EXT>

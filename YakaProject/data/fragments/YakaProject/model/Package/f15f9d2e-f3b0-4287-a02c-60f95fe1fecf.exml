@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Auxiliaire" version="3">
+  <DEPS>
+    <ID name="Auxiliaire" mc="Package" uid="f15f9d2e-f3b0-4287-a02c-60f95fe1fecf"/>
+    <COMPID name="HashMap&lt;String,Ident&gt;" mc="Class" uid="b5d54d02-c6e2-4c94-8f60-5bbca7cbee69"/>
+    <COMPID name="OutputStream" mc="Class" uid="a6db2695-47cf-4299-9a04-f3fe6a89f3e2"/>
+    <COMPID name="Stack" mc="Class" uid="ff3345ed-7a1a-444b-93ad-3095768be576"/>
+  </DEPS>
+  <OBJECT>
+    <ID name="Auxiliaire" mc="Package" uid="f15f9d2e-f3b0-4287-a02c-60f95fe1fecf"/>
+    <PID name="yakaproject" mc="Package" uid="2aa92102-e89a-490d-a94c-21e57b6a24ae"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Auxiliaire]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="OutputStream" mc="Class" uid="a6db2695-47cf-4299-9a04-f3fe6a89f3e2"/>
+        <COMPID name="HashMap&lt;String,Ident&gt;" mc="Class" uid="b5d54d02-c6e2-4c94-8f60-5bbca7cbee69"/>
+        <COMPID name="Stack" mc="Class" uid="ff3345ed-7a1a-444b-93ad-3095768be576"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>
