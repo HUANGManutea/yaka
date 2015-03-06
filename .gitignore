@@ -3,6 +3,13 @@
 *.war
 *.ear
 *.class
+ParseException.java
+SimpleCharStream.java
+Token.java
+TokenMgrError.java
+Yaka.java
+YakaConstants.java
+YakaTokenManager.java
 
 # eclipse specific git ignore
 *.pydevproject
