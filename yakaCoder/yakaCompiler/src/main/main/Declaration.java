@@ -39,7 +39,8 @@ public class Declaration {
 		}
 	}
 	
-	public void declareVar() {
+	public void declareVar(String ident) {
+		setCurrentIdent(ident);
 		countVar++;
 		IdVar v = new IdVar(currentType, countVar*-2);
 		Yaka.tabIdent.add(currentIdent, v);

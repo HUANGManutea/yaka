@@ -2,7 +2,7 @@
  *
  *       Auteur: Pedrono Marie-Jo
  *
- * 	création : 13 février 2002
+ * 	crï¿½ation : 13 fï¿½vrier 2002
  *
  *     nature : projet etudiant
  *
@@ -82,7 +82,7 @@ SKIP :
 }
 
 
-/* Mots réservés*/
+/* Mots rï¿½servï¿½s*/
 
 TOKEN :
 {
@@ -159,33 +159,33 @@ void declConst() : {}
 void defConst() : {}
 {
 	
-  <ident>  	  	
-   "=" valConst()
+  <ident>  	  		{declaration.setCurrentIdent(YakaTokenManager.identLu);}
+   "=" valConst()	
     
 }
 
 void valConst() : {}{
-  <entier> 		
- | <ident>		
- | <VRAI> 		
- | <FAUX> 		
+  <entier> 		{declaration.declareConstByValue(Type.INTEGER, YakaTokenManager.entierLu);}
+ | <ident>		{declaration.declareConstByIdent(YakaTokenManager.identLu);}
+ | <VRAI> 		{declaration.declareConstByValue(Type.BOOLEAN, VRAI);}
+ | <FAUX> 		{declaration.declareConstByValue(Type.BOOLEAN, FAUX);}
 }
 
 
 void declVar() : {}
 {
   <VAR> type()	
-  <ident>		
+  <ident>		{declaration.declareVar(YakaTokenManager.identLu);}
   ("," 
-      <ident>  
+      <ident>  	{declaration.declareVar(YakaTokenManager.identLu);}
   )* ";"
 	
 }
 
 void type() :{}
 {
-   <ENTIER> 			
- | <BOOLEEN>	
+   <ENTIER> 	{declaration.setCurrentType(Type.INTEGER);}
+ | <BOOLEEN>	{declaration.setCurrentType(Type.BOOLEAN);}
 }
 /*
  * Syntaxe des instructions.
@@ -202,7 +202,7 @@ void expression() : {}
 {
   simpleExpr() 
   (opRel() 
-  simpleExpr() 
+  simpleExpr() 	{expression.checkType();}
   )?
 }
 
@@ -212,19 +212,19 @@ void simpleExpr() : {}
 {
    terme() 
    (opAdd() 
-   terme()	
+   terme()		{expression.checkType();}
    )*
 } 
 void terme() : {}
 {
   facteur() 
   (opMul() 
-  facteur()	
+  facteur()		{expression.checkType();}
   )*
 }
 void facteur() : {}
 {   primaire() 
-  |  opNeg() primaire() 
+  |  opNeg() primaire() {expression.checkNeg();}
 }
 
 void primaire (): {}
@@ -235,40 +235,40 @@ void primaire (): {}
 }
 
 void valeur () : {}
-{ <entier> 		
- | <ident> 		
- | <VRAI> 		
- | <FAUX> 		
+{ <entier> 		{expression.addInteger();}
+ | <ident> 		{expression.addIdent(YakaTokenManager.identLu);}
+ | <VRAI> 		{expression.addBoolean();}
+ | <FAUX> 		{expression.addBoolean();}
  
 }
 
 void opRel() : {}
 {
-   "=" 		
- | "<>" 	
- | "<" 		
- | "<=" 	
- | ">" 		
- | ">=" 	
+   "=" 		{expression.addOperator("=");}
+ | "<>" 	{expression.addOperator("<>");}
+ | "<" 		{expression.addOperator("<");}
+ | "<=" 	{expression.addOperator("<=");}
+ | ">" 		{expression.addOperator(">");}
+ | ">=" 	{expression.addOperator(">=");}
 } 
 
 void opAdd() : {}
 {
-    "+"		
-  |  "-"  
-  | <OU> 	
+    "+"		{expression.addOperator("+");}
+  |  "-"  	{expression.addOperator("-");}
+  | <OU> 	{expression.addOperator("OU");}
 }
 
 void opMul() : {}
 {
-  "*"		
-  | "/"		
-  | <ET>	
+  "*"		{expression.addOperator("*");}
+  | "/"		{expression.addOperator("/");}
+  | <ET>	{expression.addOperator("ET");}
 } 
 
 void opNeg() : {}
-{ "-" 		
- | <NON>	
+{ "-" 		{expression.addOperator("-");}
+ | <NON>	{expression.addOperator("NON");}
 }
 
 
