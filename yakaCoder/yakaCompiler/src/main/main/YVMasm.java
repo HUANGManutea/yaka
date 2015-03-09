@@ -7,6 +7,7 @@ import java.io.OutputStream;
  */
 public class YVMasm extends YVM {
 	private OutputStream f;
+	private int noMess;
 	
 	/**
 	 * Début du programme
@@ -14,6 +15,7 @@ public class YVMasm extends YVM {
 	 */
 	public void startProg(String nomProg){
 		Ecriture.ouvrir(nomProg + ".asm");
+		noMess = 0;
 		entete();
 	}
 	
@@ -26,31 +28,63 @@ public class YVMasm extends YVM {
 	}
 	
 	/**
-	 * @TODO Transformer tout en code assembleur !
 	 * Début du programme
 	 */
 	public void entete(){
-		System.out.println("entete");
-		Ecriture.ecrireStringln("entete");
+		System.out.println("extern lirent:proc,");
+		System.out.println("extern ecrent:proc,");
+		System.out.println("extern ecrbool:proc,");
+		System.out.println("extern ecrch:proc,");
+		System.out.println("extern ligsuiv:proc");
+		System.out.println(".model SMALL");
+		System.out.println(".586");
+		System.out.println("");
+		System.out.println(".CODE");
+		System.out.println("debut :");
+		System.out.println("\tSTARTUPCODE");
+		
+		Ecriture.ecrireStringln("\t; entete");
+		Ecriture.ecrireStringln("extern lirent:proc,");
+		Ecriture.ecrireStringln("extern ecrent:proc,");
+		Ecriture.ecrireStringln("extern ecrbool:proc,");
+		Ecriture.ecrireStringln("extern ecrch:proc,");
+		Ecriture.ecrireStringln("extern ligsuiv:proc");
+		Ecriture.ecrireStringln(".model SMALL");
+		Ecriture.ecrireStringln(".586");
+		Ecriture.ecrireStringln("");
+		Ecriture.ecrireStringln(".CODE");
+		Ecriture.ecrireStringln("debut :");
+		Ecriture.ecrireStringln("\tSTARTUPCODE");
+		Ecriture.ecrireStringln("");
 	}
 	
 	/**
-	 * @TODO Transformer tout en code assembleur !
 	 * Fin du programme
 	 */
 	public void queue(){
-		System.out.println("queue");
-		Ecriture.ecrireStringln("queue");
+		System.out.println("\tnop");
+		System.out.println("\texitcode");
+		System.out.println("\tend debut");
+		
+		Ecriture.ecrireStringln("\t; queue");
+		Ecriture.ecrireStringln("\tnop");
+		Ecriture.ecrireStringln("\texitcode");
+		Ecriture.ecrireStringln("\tend debut");
+		Ecriture.ecrireStringln("");
 	}
 	
 	/**
-	 * @TODO Transformer tout en code assembleur !
 	 * Préparation de la mémoire
 	 * @param nbVars	Nombre de variables du programme
 	 */
 	public void ouvrePrinc(int nbVars){
-		System.out.println("ouvrePrinc " + nbVars * 2);
-		Ecriture.ecrireStringln("ouvrePrinc " + nbVars * 2);
+		System.out.println("\tmov bp,sp");
+		System.out.println("\tsup sp," + nbVars * 2);
+		
+		Ecriture.ecrireStringln("\t; ouvrePrinc " + nbVars * 2);
+		Ecriture.ecrireStringln("\tmov bp,sp");
+		Ecriture.ecrireStringln("\tsup sp," + nbVars * 2);
+		Ecriture.ecrireStringln("");
 	}
 	
 	/**
@@ -58,10 +92,10 @@ public class YVMasm extends YVM {
 	 * @param val	Valeur à empiler
 	 */
 	public void iconst(int val){
-		System.out.println("push word ptr  " + val);
+		System.out.println("\tpush word ptr  " + val);
 		
-		Ecriture.ecrireStringln("; iconst val " + val);
-		Ecriture.ecrireStringln("push word ptr " + val);
+		Ecriture.ecrireStringln("\t; iconst val " + val);
+		Ecriture.ecrireStringln("\tpush word ptr " + val);
 		Ecriture.ecrireStringln("");
 	}
 	
@@ -70,290 +104,486 @@ public class YVMasm extends YVM {
 	 * @param offset	Adresse de la variable à lire
 	 */
 	public void iload(int offset){
-		System.out.println("push word ptr [bp+" + offset + "]");
+		System.out.println("\tpush word ptr [bp+" + offset + "]");
 		
-		Ecriture.ecrireStringln("; iload " + offset);
-		Ecriture.ecrireStringln("push word ptr [bp+" + offset + "]");
+		Ecriture.ecrireStringln("\t; iload " + offset);
+		Ecriture.ecrireStringln("\tpush word ptr [bp+" + offset + "]");
 		Ecriture.ecrireStringln("");
 	}
 	
 	/**
-	 * @TODO Transformer tout en code assembleur !
 	 * Dépiler et affecter la valeur dans une variable en mémoire
 	 * @param offset	Adresse de la variable à affecter
 	 */
 	public void istore(int offset){
-		System.out.println("istore " + offset);
-		Ecriture.ecrireStringln("istore " + offset);
+		System.out.println("\tpop ax");
+		System.out.println("\tmov word ptr[bp+" + offset + "],ax");
+		
+		Ecriture.ecrireStringln("\t; istore " + offset);
+		Ecriture.ecrireStringln("\tpop ax");
+		Ecriture.ecrireStringln("\tmov word ptr[bp+" + offset + "],ax");
+		Ecriture.ecrireStringln("");
 	}
 	
 	/**
 	 * Addition
 	 * Dépile deux valeurs entières et empile le résultat de la somme
-	 * @return
 	 */
 	public void iadd(){
-		System.out.println("pop bx");
-		System.out.println("pop ax");
-		System.out.println("add ax,bx");
-		System.out.println("push ax");
+		System.out.println("\tpop bx");
+		System.out.println("\tpop ax");
+		System.out.println("\tadd ax,bx");
+		System.out.println("\tpush ax");
 		
-		Ecriture.ecrireStringln("; iadd");
-		Ecriture.ecrireStringln("pop bx");
-		Ecriture.ecrireStringln("pop ax");
-		Ecriture.ecrireStringln("add ax,bx");
-		Ecriture.ecrireStringln("push ax");
+		Ecriture.ecrireStringln("\t; iadd");
+		Ecriture.ecrireStringln("\tpop bx");
+		Ecriture.ecrireStringln("\tpop ax");
+		Ecriture.ecrireStringln("\tadd ax,bx");
+		Ecriture.ecrireStringln("\tpush ax");
 		Ecriture.ecrireStringln("");
 	}
 	
 	/**
-	 * @TODO Transformer tout en code assembleur !
 	 * Soustraction
 	 * Dépile deux valeurs entières et empile le résultat de la soustraction
 	 */
 	public void isub(){
-		System.out.println("isub");
-		Ecriture.ecrireStringln("isub");
+		System.out.println("\tpop bx");
+		System.out.println("\tpop ax");
+		System.out.println("\tsub ax,bx");
+		System.out.println("\tpush ax");
+			
+		Ecriture.ecrireStringln("\t; isub");
+		Ecriture.ecrireStringln("\tpop bx");
+		Ecriture.ecrireStringln("\tpop ax");
+		Ecriture.ecrireStringln("\tsub ax,bx");
+		Ecriture.ecrireStringln("\tpush ax");
+		Ecriture.ecrireStringln("");
 	}
 	
 	/**
-	 * @TODO Transformer tout en code assembleur !
 	 * Multiplication
 	 * Dépile deux valeurs entières et empile le résultat du produit
 	 */
 	public void imul(){
-		System.out.println("imul");
-		Ecriture.ecrireStringln("imul");
+		System.out.println("\tpop bx");
+		System.out.println("\tpop ax");
+		System.out.println("\timul ax,bx");
+		System.out.println("\tpush ax");
+			
+		Ecriture.ecrireStringln("\t; imul");
+		Ecriture.ecrireStringln("\tpop bx");
+		Ecriture.ecrireStringln("\tpop ax");
+		Ecriture.ecrireStringln("\timul ax,bx");
+		Ecriture.ecrireStringln("\tpush ax");
+		Ecriture.ecrireStringln("");
 	}
 	
 	/**
-	 * @TODO Transformer tout en code assembleur !
 	 * Division
 	 * Dépile deux valeurs entières et empile le résultat de la division
 	 */
 	public void idiv(){
-		System.out.println("idiv");
-		Ecriture.ecrireStringln("idiv");
+		System.out.println("\tpop bx");
+		System.out.println("\tpop ax");
+		System.out.println("\tcwd");
+		System.out.println("\tidiv ax,bx");
+		System.out.println("\tpush ax");
+			
+		Ecriture.ecrireStringln("\t; idiv");
+		Ecriture.ecrireStringln("\tpop bx");
+		Ecriture.ecrireStringln("\tpop ax");
+		Ecriture.ecrireStringln("\tcwd");
+		Ecriture.ecrireStringln("\tidiv ax,bx");
+		Ecriture.ecrireStringln("\tpush ax");
+		Ecriture.ecrireStringln("");
 	}
 	
 	/**
-	 * @TODO Transformer tout en code assembleur !
 	 * OU logique
 	 * Dépile deux valeurs booléennes et empile le résultat de A OU B
 	 */
 	public void ior(){
-		System.out.println("ior");
-		Ecriture.ecrireStringln("ior");
+		System.out.println("\tpop bx");
+		System.out.println("\tpop ax");
+		System.out.println("\tor ax,bx");
+		System.out.println("\tpush ax");
+		
+		Ecriture.ecrireStringln("\t; ior");
+		Ecriture.ecrireStringln("\tpop bx");
+		Ecriture.ecrireStringln("\tpop ax");
+		Ecriture.ecrireStringln("\tor ax,bx");
+		Ecriture.ecrireStringln("\tpush ax");
+		Ecriture.ecrireStringln("");
 	}
 
 	/**
-	 * @TODO Transformer tout en code assembleur !
 	 * ET logique
 	 * Dépile deux valeurs booléennes et empile le résultat de A ET B
 	 */
 	public void iand(){
-		System.out.println("iand");
-		Ecriture.ecrireStringln("iand");
+		System.out.println("\tpop bx");
+		System.out.println("\tpop ax");
+		System.out.println("\tand ax,bx");
+		System.out.println("\tpush ax");
+		
+		Ecriture.ecrireStringln("\t; iand");
+		Ecriture.ecrireStringln("\tpop bx");
+		Ecriture.ecrireStringln("\tpop ax");
+		Ecriture.ecrireStringln("\tand ax,bx");
+		Ecriture.ecrireStringln("\tpush ax");
+		Ecriture.ecrireStringln("");
 	}
 	
 	/**
-	 * @TODO Transformer tout en code assembleur !
 	 * Test d'infériorité stricte
 	 * Dépile deux valeurs entières et empile le résultat du test A < B
 	 */
 	public void iinf(){
-		System.out.println("iinf");
-		Ecriture.ecrireStringln("iinf");
+		System.out.println("\tpop bx");
+		System.out.println("\tpop ax");
+		System.out.println("\tcmp ax,bx");
+		System.out.println("\tjge $+6");
+		System.out.println("\tpush word ptr " + Constantes.FAUX);
+		System.out.println("\tjmp $+4");
+		System.out.println("\tpush word ptr " + Constantes.VRAI);
+		
+		Ecriture.ecrireStringln("\t; iinf");
+		Ecriture.ecrireStringln("\tpop bx");
+		Ecriture.ecrireStringln("\tpop ax");
+		Ecriture.ecrireStringln("\tcmp ax,bx");
+		Ecriture.ecrireStringln("\tjge $+6");
+		Ecriture.ecrireStringln("\tpush word ptr " + Constantes.FAUX);
+		Ecriture.ecrireStringln("\tjmp $+4");
+		Ecriture.ecrireStringln("\tpush word ptr " + Constantes.VRAI);
+		Ecriture.ecrireStringln("");
 	}
 	
 	/**
-	 * @TODO Transformer tout en code assembleur !
 	 * Test de superiorité stricte
 	 * Dépile deux valeurs entières et empile le résultat du test A > B
 	 */
 	public void isup(){
-		System.out.println("isup");
-		Ecriture.ecrireStringln("isup");
+		System.out.println("\tpop bx");
+		System.out.println("\tpop ax");
+		System.out.println("\tcmp ax,bx");
+		System.out.println("\tjle $+6");
+		System.out.println("\tpush word ptr " + Constantes.FAUX);
+		System.out.println("\tjmp $+4");
+		System.out.println("\tpush word ptr " + Constantes.VRAI);
+		
+		Ecriture.ecrireStringln("\t; isup");
+		Ecriture.ecrireStringln("\tpop bx");
+		Ecriture.ecrireStringln("\tpop ax");
+		Ecriture.ecrireStringln("\tcmp ax,bx");
+		Ecriture.ecrireStringln("\tjle $+6");
+		Ecriture.ecrireStringln("\tpush word ptr " + Constantes.FAUX);
+		Ecriture.ecrireStringln("\tjmp $+4");
+		Ecriture.ecrireStringln("\tpush word ptr " + Constantes.VRAI);
+		Ecriture.ecrireStringln("");
 	}
 	
 	/**
-	 * @TODO Transformer tout en code assembleur !
 	 * Test d'infériorité 
 	 * Dépile deux valeurs entières et empile le résultat du test A <= B
 	 */
 	public void iinfegal(){
-		System.out.println("iinfegal");
-		Ecriture.ecrireStringln("iinfegal");
+		System.out.println("\tpop bx");
+		System.out.println("\tpop ax");
+		System.out.println("\tcmp ax,bx");
+		System.out.println("\tjg $+6");
+		System.out.println("\tpush word ptr " + Constantes.FAUX);
+		System.out.println("\tjmp $+4");
+		System.out.println("\tpush word ptr " + Constantes.VRAI);
+		
+		Ecriture.ecrireStringln("\t; iinfegal");
+		Ecriture.ecrireStringln("\tpop bx");
+		Ecriture.ecrireStringln("\tpop ax");
+		Ecriture.ecrireStringln("\tcmp ax,bx");
+		Ecriture.ecrireStringln("\tjg $+6");
+		Ecriture.ecrireStringln("\tpush word ptr " + Constantes.FAUX);
+		Ecriture.ecrireStringln("\tjmp $+4");
+		Ecriture.ecrireStringln("\tpush word ptr " + Constantes.VRAI);
+		Ecriture.ecrireStringln("");
 	}
 	
 	/**
-	 * @TODO Transformer tout en code assembleur !
 	 * Test de supériorité
 	 * Dépile deux valeurs entières et empile le résultat du test A >= B
 	 */
 	public void isupegal(){
-		System.out.println("isupegal");
-		Ecriture.ecrireStringln("isupegal");
+		System.out.println("\tpop bx");
+		System.out.println("\tpop ax");
+		System.out.println("\tcmp ax,bx");
+		System.out.println("\tjl $+6");
+		System.out.println("\tpush word ptr " + Constantes.FAUX);
+		System.out.println("\tjmp $+4");
+		System.out.println("\tpush word ptr " + Constantes.VRAI);
+		
+		Ecriture.ecrireStringln("\t; isupegal");
+		Ecriture.ecrireStringln("\tpop bx");
+		Ecriture.ecrireStringln("\tpop ax");
+		Ecriture.ecrireStringln("\tcmp ax,bx");
+		Ecriture.ecrireStringln("\tjl $+6");
+		Ecriture.ecrireStringln("\tpush word ptr " + Constantes.FAUX);
+		Ecriture.ecrireStringln("\tjmp $+4");
+		Ecriture.ecrireStringln("\tpush word ptr " + Constantes.VRAI);
+		Ecriture.ecrireStringln("");
 	}
 	
 	/**
-	 * @TODO Transformer tout en code assembleur !
 	 * Test d'égalité
 	 * Dépile deux valeurs entières et empile le résultat du test A == B
 	 */
 	public void iegal(){
-		System.out.println("iegal");
-		Ecriture.ecrireStringln("iegal");
+		System.out.println("\tpop bx");
+		System.out.println("\tpop ax");
+		System.out.println("\tcmp ax,bx");
+		System.out.println("\tje $+6");
+		System.out.println("\tpush word ptr " + Constantes.FAUX);
+		System.out.println("\tjmp $+4");
+		System.out.println("\tpush word ptr " + Constantes.VRAI);
+		
+		Ecriture.ecrireStringln("\t; iegal");
+		Ecriture.ecrireStringln("\tpop bx");
+		Ecriture.ecrireStringln("\tpop ax");
+		Ecriture.ecrireStringln("\tcmp ax,bx");
+		Ecriture.ecrireStringln("\tje $+6");
+		Ecriture.ecrireStringln("\tpush word ptr " + Constantes.FAUX);
+		Ecriture.ecrireStringln("\tjmp $+4");
+		Ecriture.ecrireStringln("\tpush word ptr " + Constantes.VRAI);
+		Ecriture.ecrireStringln("");
 	}
 	
 	/**
-	 * @TODO Transformer tout en code assembleur !
 	 * Test de différence
 	 * Dépile deux valeurs entières et empile le résultat du test A != B
 	 */
 	public void idiff(){
-		System.out.println("idiff");
-		Ecriture.ecrireStringln("idiff");
+		System.out.println("\tpop bx");
+		System.out.println("\tpop ax");
+		System.out.println("\tcmp ax,bx");
+		System.out.println("\tjne $+6");
+		System.out.println("\tpush word ptr " + Constantes.FAUX);
+		System.out.println("\tjmp $+4");
+		System.out.println("\tpush word ptr " + Constantes.VRAI);
+		
+		Ecriture.ecrireStringln("\t; idiff");
+		Ecriture.ecrireStringln("\tpop bx");
+		Ecriture.ecrireStringln("\tpop ax");
+		Ecriture.ecrireStringln("\tcmp ax,bx");
+		Ecriture.ecrireStringln("\tjne $+6");
+		Ecriture.ecrireStringln("\tpush word ptr " + Constantes.FAUX);
+		Ecriture.ecrireStringln("\tjmp $+4");
+		Ecriture.ecrireStringln("\tpush word ptr " + Constantes.VRAI);
+		Ecriture.ecrireStringln("");
 	}
 	
 	/**
-	 * @TODO Transformer tout en code assembleur !
 	 * Négation
 	 * Dépile l'entier A et empile -A
 	 */
 	public void ineg(){
-		System.out.println("ineg");
-		Ecriture.ecrireStringln("ineg");
+		System.out.println("\tpop ax");
+		System.out.println("\tneg ax");
+		System.out.println("\tpush ax");
+		
+		Ecriture.ecrireStringln("\t; ineg");
+		Ecriture.ecrireStringln("\tpop ax");
+		Ecriture.ecrireStringln("\tneg ax");
+		Ecriture.ecrireStringln("\tpush ax");
+		Ecriture.ecrireStringln("");
 	}
 
 	/**
-	 * @TODO Transformer tout en code assembleur !
 	 * NON logique
 	 * Dépile un booléen et empile sa négation
 	 */
 	public void inot(){
-		System.out.println("inot");
-		Ecriture.ecrireStringln("inot");
+		System.out.println("\tpop ax");
+		System.out.println("\tnot ax");
+		System.out.println("\tpush ax");
+		
+		Ecriture.ecrireStringln("\t; inot");
+		Ecriture.ecrireStringln("\tpop ax");
+		Ecriture.ecrireStringln("\tnot ax");
+		Ecriture.ecrireStringln("\tpush ax");
+		Ecriture.ecrireStringln("");
 	}
 	
 	/**
-	 * @TODO Transformer tout en code assembleur !
 	 * Saut inconditionnel
 	 * @param etiq	Étiquette où l'on se situe après l'appel de goto
 	 */
 	public void goto_(String etiq){
-		System.out.println("goto " + etiq);
-		Ecriture.ecrireStringln("goto " + etiq);
+		System.out.println("\tjmp " + etiq);
+		
+		Ecriture.ecrireStringln("\t; goto " + etiq);
+		Ecriture.ecrireStringln("\tjmp " + etiq);
+		Ecriture.ecrireStringln("");
 	}
 	
 	/**
-	 * @TODO Transformer tout en code assembleur !
 	 * Saut sur une valeur faux
 	 * On dépile le sommet de pile. S'il vaut faux, on saute à l'étiquette voulue
 	 * @param etiq	Étiquette 
 	 */
 	public void iffaux(String etiq){
-		System.out.println("iffaux " + etiq);
-		Ecriture.ecrireStringln("iffaux " + etiq);
+		System.out.println("\tpop ax");
+		System.out.println("\tcmp ax," + Constantes.VRAI);
+		System.out.println("\tjne " + etiq);
+		
+		Ecriture.ecrireStringln("\t; iffaux " + etiq);
+		Ecriture.ecrireStringln("\tpop ax");
+		Ecriture.ecrireStringln("\tcmp ax," + Constantes.VRAI);
+		Ecriture.ecrireStringln("\tjne " + etiq);
+		Ecriture.ecrireStringln("");
 	}
 	
 	/**
-	 * @TODO Transformer tout en code assembleur !
 	 * Saut en cas d'égalité
 	 * Les deux valeurs en sommet de pile sont dépilées.
 	 * Si elles sont égales, on effetue un saut
 	 * @param etiq	Étiquette
 	 */
 	public void ifeq(String etiq){
-		System.out.println("ifeq " + etiq);
-		Ecriture.ecrireStringln("ifeq " + etiq);
+		System.out.println("\tpop ax");
+		System.out.println("\tpop bx");
+		System.out.println("\tcmp ax,bx");
+		System.out.println("\tjne " + etiq);
+		
+		Ecriture.ecrireStringln("\t; ifeq " + etiq);
+		Ecriture.ecrireStringln("\tpop ax");
+		Ecriture.ecrireStringln("\tpop bx");
+		Ecriture.ecrireStringln("\tcmp ax,bx");
+		Ecriture.ecrireStringln("\tjne " + etiq);
+		Ecriture.ecrireStringln("");
 	}
 	
 	/**
-	 * @TODO Transformer tout en code assembleur !
 	 * La valeur en sommet de pile est dépilée puis affichée
 	 */
 	public void ecrireEnt(){
-		System.out.println("ecrireEnt");
-		Ecriture.ecrireStringln("ecrireEnt");
+		System.out.println("\tcall ecrent");
+		System.out.println();
+		
+		Ecriture.ecrireStringln("\t; ecrireEnt");
+		Ecriture.ecrireStringln("\tcall ecrent");
+		Ecriture.ecrireStringln("");
 	}
 	
 	/**
-	 * @TODO Transformer tout en code assembleur !
 	 * Lecture d'un entier au clavier
 	 * Affectation de cet entier à l'adresse donnée par le sommet de pile
 	 * Dépiler le sommet de pile
 	 */
 	public void lireEnt(){
-		System.out.println("lireEnt");
-		Ecriture.ecrireStringln("lireEnt");
+		System.out.println("\tlea dx,[bp-6]");
+		System.out.println("\tpush dx");
+		System.out.println("\tcall lirent");
+		
+		Ecriture.ecrireStringln("\t; lireEnt");
+		Ecriture.ecrireStringln("\tlea dx,[bp-6]");
+		Ecriture.ecrireStringln("\tpush dx");
+		Ecriture.ecrireStringln("\tcall lirent");
+		Ecriture.ecrireStringln("");
 	}
 	
 	/**
-	 * @TODO Transformer tout en code assembleur !
 	 * Passage à la ligne
 	 */
 	public void aLaLigne(){
-		System.out.println("aLaLigne");
-		Ecriture.ecrireStringln("aLaLigne");
+		System.out.println("\tcall ligsuiv");
+		
+		Ecriture.ecrireStringln("\t; aLaLigne");
+		Ecriture.ecrireStringln("\tcall ligsuiv");
+		Ecriture.ecrireStringln("");
 	}
 	
 	/**
-	 * @TODO Transformer tout en code assembleur !
 	 * Écriture à l'écran
 	 * @param chaine
 	 */
 	public void ecrireChaine(String chaine){
-		System.out.println("ecrireChaine \"" + chaine + "\"");
-		Ecriture.ecrireStringln("ecrireChaine \"" + chaine + "\"");
+		System.out.println(".DATA");
+		System.out.println("\tmess" + noMess + " DB \"" + chaine + "\"");
+		System.out.println(".CODE");
+		System.out.println("\tlea dx,mess" + noMess);
+		System.out.println("\tpush dx");
+		System.out.println("\tcall ecrch");
+		
+		Ecriture.ecrireStringln("\t; ecrireChaine \"" + chaine + "\"");
+		Ecriture.ecrireStringln(".DATA");
+		Ecriture.ecrireStringln("\tmess" + noMess + " DB \"" + chaine + "\"");
+		Ecriture.ecrireStringln(".CODE");
+		Ecriture.ecrireStringln("\tlea dx,mess" + noMess);
+		Ecriture.ecrireStringln("\tpush dx");
+		Ecriture.ecrireStringln("\tcall ecrch");
+		Ecriture.ecrireStringln("");
+		
+		noMess++;
 	}
 	
 	/**
-	 * @TODO Transformer tout en code assembleur !
 	 * Ouverture d'un bloc de code
 	 * @param nbVars	Nombre de variables mémoire à allouer
 	 */
 	public void ouvreBloc(int nbVars){
-		System.out.println("ouvreBloc " + nbVars * 2);
-		Ecriture.ecrireStringln("ouvreBloc " + nbVars * 2);
+		System.out.println("\tenter " + nbVars * 2 + ",0");
+		
+		Ecriture.ecrireStringln("\t; ouvreBloc " + nbVars * 2);
+		Ecriture.ecrireStringln("\tenter " + nbVars * 2 + ",0");
+		Ecriture.ecrireStringln("");
 	}
 	
 	/**
-	 * @TODO Transformer tout en code assembleur !
 	 * Fermeture d'un bloc de code
 	 * @param nbVars	Nombre de variables mémoire à allouer
 	 */
 	public void fermeBloc(int nbVars){
-		System.out.println("fermeBloc " + nbVars * 2);
-		Ecriture.ecrireStringln("fermeBloc " + nbVars * 2);
+		System.out.println("leave");
+		System.out.println("ret " + nbVars * 2);
+		
+		Ecriture.ecrireStringln("; fermeBloc " + nbVars * 2);
+		Ecriture.ecrireStringln("leave");
+		Ecriture.ecrireStringln("ret " + nbVars * 2);
+		Ecriture.ecrireStringln("");
 	}
 	
 	/**
-	 * @TODO Transformer tout en code assembleur !
-	 * Retour à une adresse donnée
-	 * @param offset	Adresse où repartir
+	 * Retour d'une valeur à adresse donnée
+	 * @param offset	Adresse où stocker la valeur
 	 */
 	public void ireturn(int offset){
-		System.out.println("ireturn " + offset);
-		Ecriture.ecrireStringln("ireturn " + offset);
+		System.out.println("\tpop ax");
+		System.out.println("\tmov [bp+" + offset + "],ax");
+		
+		Ecriture.ecrireStringln("\t; ireturn " + offset);
+		Ecriture.ecrireStringln("\tpop ax");
+		Ecriture.ecrireStringln("\tmov [bp+" + offset + "],ax");
+		Ecriture.ecrireStringln("");
 	}
 	
 	/**
-	 * @TODO Transformer tout en code assembleur !
 	 * Réservation d'une place dans la pile pour le résultat de retour d'une fonction
 	 */
 	public void reserveRetour(){
-		System.out.println("reserveRetour");
-		Ecriture.ecrireStringln("reserveRetour");
+		System.out.println("\tsub sp,2");
+		
+		Ecriture.ecrireStringln("\t; reserveRetour");
+		Ecriture.ecrireStringln("\tsub sp,2");
+		Ecriture.ecrireStringln("");
 	}
 	
 	/**
-	 * @TODO Transformer tout en code assembleur !
 	 * Appel d'une fonction
 	 * @param nom	Fonction à appeler
 	 */
 	public void call(String nom){
-		System.out.println("call " + nom);
-		Ecriture.ecrireStringln("call " + nom);
+		System.out.println("\tcall " + nom);
+		
+		Ecriture.ecrireStringln("\t; call " + nom);
+		Ecriture.ecrireStringln("\tcall " + nom);
+		Ecriture.ecrireStringln("");
 	}
 }

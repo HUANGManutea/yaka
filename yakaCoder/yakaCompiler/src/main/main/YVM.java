@@ -288,8 +288,8 @@ public class YVM {
 	}
 	
 	/**
-	 * Retour à une adresse donnée
-	 * @param offset	Adresse où repartir
+	 * Retour d'une valeur à une adresse donnée
+	 * @param offset	Adresse où stocker
 	 */
 	public void ireturn(int offset){
 		System.out.println("ireturn " + offset);
