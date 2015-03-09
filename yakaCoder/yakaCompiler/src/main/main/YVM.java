@@ -1,5 +1,7 @@
 package main;
 import java.io.OutputStream;
+import java.io.File;
+import java.nio.file.Path;
 
 /**
  * Classe de simulation de la Virtual Machine
@@ -7,12 +9,23 @@ import java.io.OutputStream;
  */
 public class YVM {
 	private OutputStream f;
+	private File fic;
+	private boolean status_ok = true;
+	
+	/**
+	 * Passage à un statut d'erreur
+	 * Une fois passé au statut d'erreur, le fichier ne sera pas créé
+	 */
+	public void erreur(){
+		status_ok = false;
+	}
 	
 	/**
 	 * Début du programme
 	 * @param nomProg	Nom du programme, utilisé pour nomme le fichier de sortie
 	 */
 	public void startProg(String nomProg){
+		fic = new File(nomProg);
 		Ecriture.ouvrir(nomProg);
 		entete();
 	}
@@ -22,6 +35,8 @@ public class YVM {
 	 */
 	public void endProg(){
 		Ecriture.fermer(f);
+		if (!status_ok)
+			fic.delete();
 		queue();
 	}
 	
@@ -30,7 +45,7 @@ public class YVM {
 	 */
 	public void entete(){
 		System.out.println("entete");
-		Ecriture.ecrireStringln("entete");
+		Ecriture.ecrireStringln(f,"entete");
 	}
 	
 	/**
@@ -38,7 +53,7 @@ public class YVM {
 	 */
 	public void queue(){
 		System.out.println("queue");
-		Ecriture.ecrireStringln("queue");
+		Ecriture.ecrireStringln(f,"queue");
 	}
 	
 	/**
@@ -47,7 +62,7 @@ public class YVM {
 	 */
 	public void ouvrePrinc(int nbVars){
 		System.out.println("ouvrePrinc " + nbVars * 2);
-		Ecriture.ecrireStringln("ouvrePrinc " + nbVars * 2);
+		Ecriture.ecrireStringln(f,"ouvrePrinc " + nbVars * 2);
 	}
 	
 	/**
@@ -56,7 +71,7 @@ public class YVM {
 	 */
 	public void iconst(int val){
 		System.out.println("iconst " + val);
-		Ecriture.ecrireStringln("iconst " + val);
+		Ecriture.ecrireStringln(f,"iconst " + val);
 	}
 	
 	/**
@@ -65,7 +80,7 @@ public class YVM {
 	 */
 	public void iload(int offset){
 		System.out.println("iload " + offset);
-		Ecriture.ecrireStringln("iload " + offset);
+		Ecriture.ecrireStringln(f,"iload " + offset);
 	}
 	
 	/**
@@ -74,7 +89,7 @@ public class YVM {
 	 */
 	public void istore(int offset){
 		System.out.println("istore " + offset);
-		Ecriture.ecrireStringln("istore " + offset);
+		Ecriture.ecrireStringln(f,"istore " + offset);
 	}
 	
 	/**
@@ -84,7 +99,7 @@ public class YVM {
 	 */
 	public void iadd(){
 		System.out.println("iadd");
-		Ecriture.ecrireStringln("iadd");
+		Ecriture.ecrireStringln(f,"iadd");
 	}
 	
 	/**
@@ -93,7 +108,7 @@ public class YVM {
 	 */
 	public void isub(){
 		System.out.println("isub");
-		Ecriture.ecrireStringln("isub");
+		Ecriture.ecrireStringln(f,"isub");
 	}
 	
 	/**
@@ -102,7 +117,7 @@ public class YVM {
 	 */
 	public void imul(){
 		System.out.println("imul");
-		Ecriture.ecrireStringln("imul");
+		Ecriture.ecrireStringln(f,"imul");
 	}
 	
 	/**
@@ -111,7 +126,7 @@ public class YVM {
 	 */
 	public void idiv(){
 		System.out.println("idiv");
-		Ecriture.ecrireStringln("idiv");
+		Ecriture.ecrireStringln(f,"idiv");
 	}
 	
 	/**
@@ -120,7 +135,7 @@ public class YVM {
 	 */
 	public void ior(){
 		System.out.println("ior");
-		Ecriture.ecrireStringln("ior");
+		Ecriture.ecrireStringln(f,"ior");
 	}
 
 	/**
@@ -129,7 +144,7 @@ public class YVM {
 	 */
 	public void iand(){
 		System.out.println("iand");
-		Ecriture.ecrireStringln("iand");
+		Ecriture.ecrireStringln(f,"iand");
 	}
 	
 	/**
@@ -138,7 +153,7 @@ public class YVM {
 	 */
 	public void iinf(){
 		System.out.println("iinf");
-		Ecriture.ecrireStringln("iinf");
+		Ecriture.ecrireStringln(f,"iinf");
 	}
 	
 	/**
@@ -147,7 +162,7 @@ public class YVM {
 	 */
 	public void isup(){
 		System.out.println("isup");
-		Ecriture.ecrireStringln("isup");
+		Ecriture.ecrireStringln(f,"isup");
 	}
 	
 	/**
@@ -156,7 +171,7 @@ public class YVM {
 	 */
 	public void iinfegal(){
 		System.out.println("iinfegal");
-		Ecriture.ecrireStringln("iinfegal");
+		Ecriture.ecrireStringln(f,"iinfegal");
 	}
 	
 	/**
@@ -165,7 +180,7 @@ public class YVM {
 	 */
 	public void isupegal(){
 		System.out.println("isupegal");
-		Ecriture.ecrireStringln("isupegal");
+		Ecriture.ecrireStringln(f,"isupegal");
 	}
 	
 	/**
@@ -174,7 +189,7 @@ public class YVM {
 	 */
 	public void iegal(){
 		System.out.println("iegal");
-		Ecriture.ecrireStringln("iegal");
+		Ecriture.ecrireStringln(f,"iegal");
 	}
 	
 	/**
@@ -183,7 +198,7 @@ public class YVM {
 	 */
 	public void idiff(){
 		System.out.println("idiff");
-		Ecriture.ecrireStringln("idiff");
+		Ecriture.ecrireStringln(f,"idiff");
 	}
 	
 	/**
@@ -192,7 +207,7 @@ public class YVM {
 	 */
 	public void ineg(){
 		System.out.println("ineg");
-		Ecriture.ecrireStringln("ineg");
+		Ecriture.ecrireStringln(f,"ineg");
 	}
 
 	/**
@@ -201,7 +216,7 @@ public class YVM {
 	 */
 	public void inot(){
 		System.out.println("inot");
-		Ecriture.ecrireStringln("inot");
+		Ecriture.ecrireStringln(f,"inot");
 	}
 	
 	/**
@@ -210,7 +225,7 @@ public class YVM {
 	 */
 	public void goto_(String etiq){
 		System.out.println("goto " + etiq);
-		Ecriture.ecrireStringln("goto " + etiq);
+		Ecriture.ecrireStringln(f,"goto " + etiq);
 	}
 	
 	/**
@@ -220,7 +235,7 @@ public class YVM {
 	 */
 	public void iffaux(String etiq){
 		System.out.println("iffaux " + etiq);
-		Ecriture.ecrireStringln("iffaux " + etiq);
+		Ecriture.ecrireStringln(f,"iffaux " + etiq);
 	}
 	
 	/**
@@ -231,7 +246,7 @@ public class YVM {
 	 */
 	public void ifeq(String etiq){
 		System.out.println("ifeq " + etiq);
-		Ecriture.ecrireStringln("ifeq " + etiq);
+		Ecriture.ecrireStringln(f,"ifeq " + etiq);
 	}
 	
 	/**
@@ -239,7 +254,7 @@ public class YVM {
 	 */
 	public void ecrireEnt(){
 		System.out.println("ecrireEnt");
-		Ecriture.ecrireStringln("ecrireEnt");
+		Ecriture.ecrireStringln(f,"ecrireEnt");
 	}
 	
 	/**
@@ -249,7 +264,7 @@ public class YVM {
 	 */
 	public void lireEnt(){
 		System.out.println("lireEnt");
-		Ecriture.ecrireStringln("lireEnt");
+		Ecriture.ecrireStringln(f,"lireEnt");
 	}
 	
 	/**
@@ -257,7 +272,7 @@ public class YVM {
 	 */
 	public void aLaLigne(){
 		System.out.println("aLaLigne");
-		Ecriture.ecrireStringln("aLaLigne");
+		Ecriture.ecrireStringln(f,"aLaLigne");
 	}
 	
 	/**
@@ -266,7 +281,7 @@ public class YVM {
 	 */
 	public void ecrireChaine(String chaine){
 		System.out.println("ecrireChaine \"" + chaine + "\"");
-		Ecriture.ecrireStringln("ecrireChaine \"" + chaine + "\"");
+		Ecriture.ecrireStringln(f,"ecrireChaine \"" + chaine + "\"");
 	}
 	
 	/**
@@ -275,7 +290,7 @@ public class YVM {
 	 */
 	public void ouvreBloc(int nbVars){
 		System.out.println("ouvreBloc " + nbVars * 2);
-		Ecriture.ecrireStringln("ouvreBloc " + nbVars * 2);
+		Ecriture.ecrireStringln(f,"ouvreBloc " + nbVars * 2);
 	}
 	
 	/**
@@ -284,7 +299,7 @@ public class YVM {
 	 */
 	public void fermeBloc(int nbVars){
 		System.out.println("fermeBloc " + nbVars * 2);
-		Ecriture.ecrireStringln("fermeBloc " + nbVars * 2);
+		Ecriture.ecrireStringln(f,"fermeBloc " + nbVars * 2);
 	}
 	
 	/**
@@ -293,7 +308,7 @@ public class YVM {
 	 */
 	public void ireturn(int offset){
 		System.out.println("ireturn " + offset);
-		Ecriture.ecrireStringln("ireturn " + offset);
+		Ecriture.ecrireStringln(f,"ireturn " + offset);
 	}
 	
 	/**
@@ -301,7 +316,7 @@ public class YVM {
 	 */
 	public void reserveRetour(){
 		System.out.println("reserveRetour");
-		Ecriture.ecrireStringln("reserveRetour");
+		Ecriture.ecrireStringln(f,"reserveRetour");
 	}
 	
 	/**
@@ -310,6 +325,6 @@ public class YVM {
 	 */
 	public void call(String nom){
 		System.out.println("call " + nom);
-		Ecriture.ecrireStringln("call " + nom);
+		Ecriture.ecrireStringln(f,"call " + nom);
 	}
 }

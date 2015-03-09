@@ -1,4 +1,5 @@
 package main;
+import java.io.File;
 import java.io.OutputStream;
 
 /**
@@ -8,12 +9,15 @@ import java.io.OutputStream;
 public class YVMasm extends YVM {
 	private OutputStream f;
 	private int noMess;
+	private File fic;
+	private boolean status_ok = true;
 	
 	/**
 	 * Début du programme
 	 * @param nomProg	Nom du programme, utilisé pour nomme le fichier de sortie
 	 */
 	public void startProg(String nomProg){
+		fic  = new File(nomProg);
 		Ecriture.ouvrir(nomProg + ".asm");
 		noMess = 0;
 		entete();
@@ -24,6 +28,8 @@ public class YVMasm extends YVM {
 	 */
 	public void endProg(){
 		Ecriture.fermer(f);
+		if (!status_ok)
+			fic.delete();
 		queue();
 	}
 	
@@ -43,19 +49,19 @@ public class YVMasm extends YVM {
 		System.out.println("debut :");
 		System.out.println("\tSTARTUPCODE");
 		
-		Ecriture.ecrireStringln("\t; entete");
-		Ecriture.ecrireStringln("extern lirent:proc,");
-		Ecriture.ecrireStringln("extern ecrent:proc,");
-		Ecriture.ecrireStringln("extern ecrbool:proc,");
-		Ecriture.ecrireStringln("extern ecrch:proc,");
-		Ecriture.ecrireStringln("extern ligsuiv:proc");
-		Ecriture.ecrireStringln(".model SMALL");
-		Ecriture.ecrireStringln(".586");
-		Ecriture.ecrireStringln("");
-		Ecriture.ecrireStringln(".CODE");
-		Ecriture.ecrireStringln("debut :");
-		Ecriture.ecrireStringln("\tSTARTUPCODE");
-		Ecriture.ecrireStringln("");
+		Ecriture.ecrireStringln(f,"\t; entete");
+		Ecriture.ecrireStringln(f,"extern lirent:proc,");
+		Ecriture.ecrireStringln(f,"extern ecrent:proc,");
+		Ecriture.ecrireStringln(f,"extern ecrbool:proc,");
+		Ecriture.ecrireStringln(f,"extern ecrch:proc,");
+		Ecriture.ecrireStringln(f,"extern ligsuiv:proc");
+		Ecriture.ecrireStringln(f,".model SMALL");
+		Ecriture.ecrireStringln(f,".586");
+		Ecriture.ecrireStringln(f,"");
+		Ecriture.ecrireStringln(f,".CODE");
+		Ecriture.ecrireStringln(f,"debut :");
+		Ecriture.ecrireStringln(f,"\tSTARTUPCODE");
+		Ecriture.ecrireStringln(f,"");
 	}
 	
 	/**
@@ -66,11 +72,11 @@ public class YVMasm extends YVM {
 		System.out.println("\texitcode");
 		System.out.println("\tend debut");
 		
-		Ecriture.ecrireStringln("\t; queue");
-		Ecriture.ecrireStringln("\tnop");
-		Ecriture.ecrireStringln("\texitcode");
-		Ecriture.ecrireStringln("\tend debut");
-		Ecriture.ecrireStringln("");
+		Ecriture.ecrireStringln(f,"\t; queue");
+		Ecriture.ecrireStringln(f,"\tnop");
+		Ecriture.ecrireStringln(f,"\texitcode");
+		Ecriture.ecrireStringln(f,"\tend debut");
+		Ecriture.ecrireStringln(f,"");
 	}
 	
 	/**
@@ -81,10 +87,10 @@ public class YVMasm extends YVM {
 		System.out.println("\tmov bp,sp");
 		System.out.println("\tsup sp," + nbVars * 2);
 		
-		Ecriture.ecrireStringln("\t; ouvrePrinc " + nbVars * 2);
-		Ecriture.ecrireStringln("\tmov bp,sp");
-		Ecriture.ecrireStringln("\tsup sp," + nbVars * 2);
-		Ecriture.ecrireStringln("");
+		Ecriture.ecrireStringln(f,"\t; ouvrePrinc " + nbVars * 2);
+		Ecriture.ecrireStringln(f,"\tmov bp,sp");
+		Ecriture.ecrireStringln(f,"\tsup sp," + nbVars * 2);
+		Ecriture.ecrireStringln(f,"");
 	}
 	
 	/**
@@ -94,9 +100,9 @@ public class YVMasm extends YVM {
 	public void iconst(int val){
 		System.out.println("\tpush word ptr  " + val);
 		
-		Ecriture.ecrireStringln("\t; iconst val " + val);
-		Ecriture.ecrireStringln("\tpush word ptr " + val);
-		Ecriture.ecrireStringln("");
+		Ecriture.ecrireStringln(f,"\t; iconst val " + val);
+		Ecriture.ecrireStringln(f,"\tpush word ptr " + val);
+		Ecriture.ecrireStringln(f,"");
 	}
 	
 	/**
@@ -106,9 +112,9 @@ public class YVMasm extends YVM {
 	public void iload(int offset){
 		System.out.println("\tpush word ptr [bp+" + offset + "]");
 		
-		Ecriture.ecrireStringln("\t; iload " + offset);
-		Ecriture.ecrireStringln("\tpush word ptr [bp+" + offset + "]");
-		Ecriture.ecrireStringln("");
+		Ecriture.ecrireStringln(f,"\t; iload " + offset);
+		Ecriture.ecrireStringln(f,"\tpush word ptr [bp+" + offset + "]");
+		Ecriture.ecrireStringln(f,"");
 	}
 	
 	/**
@@ -119,10 +125,10 @@ public class YVMasm extends YVM {
 		System.out.println("\tpop ax");
 		System.out.println("\tmov word ptr[bp+" + offset + "],ax");
 		
-		Ecriture.ecrireStringln("\t; istore " + offset);
-		Ecriture.ecrireStringln("\tpop ax");
-		Ecriture.ecrireStringln("\tmov word ptr[bp+" + offset + "],ax");
-		Ecriture.ecrireStringln("");
+		Ecriture.ecrireStringln(f,"\t; istore " + offset);
+		Ecriture.ecrireStringln(f,"\tpop ax");
+		Ecriture.ecrireStringln(f,"\tmov word ptr[bp+" + offset + "],ax");
+		Ecriture.ecrireStringln(f,"");
 	}
 	
 	/**
@@ -135,12 +141,12 @@ public class YVMasm extends YVM {
 		System.out.println("\tadd ax,bx");
 		System.out.println("\tpush ax");
 		
-		Ecriture.ecrireStringln("\t; iadd");
-		Ecriture.ecrireStringln("\tpop bx");
-		Ecriture.ecrireStringln("\tpop ax");
-		Ecriture.ecrireStringln("\tadd ax,bx");
-		Ecriture.ecrireStringln("\tpush ax");
-		Ecriture.ecrireStringln("");
+		Ecriture.ecrireStringln(f,"\t; iadd");
+		Ecriture.ecrireStringln(f,"\tpop bx");
+		Ecriture.ecrireStringln(f,"\tpop ax");
+		Ecriture.ecrireStringln(f,"\tadd ax,bx");
+		Ecriture.ecrireStringln(f,"\tpush ax");
+		Ecriture.ecrireStringln(f,"");
 	}
 	
 	/**
@@ -153,12 +159,12 @@ public class YVMasm extends YVM {
 		System.out.println("\tsub ax,bx");
 		System.out.println("\tpush ax");
 			
-		Ecriture.ecrireStringln("\t; isub");
-		Ecriture.ecrireStringln("\tpop bx");
-		Ecriture.ecrireStringln("\tpop ax");
-		Ecriture.ecrireStringln("\tsub ax,bx");
-		Ecriture.ecrireStringln("\tpush ax");
-		Ecriture.ecrireStringln("");
+		Ecriture.ecrireStringln(f,"\t; isub");
+		Ecriture.ecrireStringln(f,"\tpop bx");
+		Ecriture.ecrireStringln(f,"\tpop ax");
+		Ecriture.ecrireStringln(f,"\tsub ax,bx");
+		Ecriture.ecrireStringln(f,"\tpush ax");
+		Ecriture.ecrireStringln(f,"");
 	}
 	
 	/**
@@ -171,12 +177,12 @@ public class YVMasm extends YVM {
 		System.out.println("\timul ax,bx");
 		System.out.println("\tpush ax");
 			
-		Ecriture.ecrireStringln("\t; imul");
-		Ecriture.ecrireStringln("\tpop bx");
-		Ecriture.ecrireStringln("\tpop ax");
-		Ecriture.ecrireStringln("\timul ax,bx");
-		Ecriture.ecrireStringln("\tpush ax");
-		Ecriture.ecrireStringln("");
+		Ecriture.ecrireStringln(f,"\t; imul");
+		Ecriture.ecrireStringln(f,"\tpop bx");
+		Ecriture.ecrireStringln(f,"\tpop ax");
+		Ecriture.ecrireStringln(f,"\timul ax,bx");
+		Ecriture.ecrireStringln(f,"\tpush ax");
+		Ecriture.ecrireStringln(f,"");
 	}
 	
 	/**
@@ -190,13 +196,13 @@ public class YVMasm extends YVM {
 		System.out.println("\tidiv ax,bx");
 		System.out.println("\tpush ax");
 			
-		Ecriture.ecrireStringln("\t; idiv");
-		Ecriture.ecrireStringln("\tpop bx");
-		Ecriture.ecrireStringln("\tpop ax");
-		Ecriture.ecrireStringln("\tcwd");
-		Ecriture.ecrireStringln("\tidiv ax,bx");
-		Ecriture.ecrireStringln("\tpush ax");
-		Ecriture.ecrireStringln("");
+		Ecriture.ecrireStringln(f,"\t; idiv");
+		Ecriture.ecrireStringln(f,"\tpop bx");
+		Ecriture.ecrireStringln(f,"\tpop ax");
+		Ecriture.ecrireStringln(f,"\tcwd");
+		Ecriture.ecrireStringln(f,"\tidiv ax,bx");
+		Ecriture.ecrireStringln(f,"\tpush ax");
+		Ecriture.ecrireStringln(f,"");
 	}
 	
 	/**
@@ -209,12 +215,12 @@ public class YVMasm extends YVM {
 		System.out.println("\tor ax,bx");
 		System.out.println("\tpush ax");
 		
-		Ecriture.ecrireStringln("\t; ior");
-		Ecriture.ecrireStringln("\tpop bx");
-		Ecriture.ecrireStringln("\tpop ax");
-		Ecriture.ecrireStringln("\tor ax,bx");
-		Ecriture.ecrireStringln("\tpush ax");
-		Ecriture.ecrireStringln("");
+		Ecriture.ecrireStringln(f,"\t; ior");
+		Ecriture.ecrireStringln(f,"\tpop bx");
+		Ecriture.ecrireStringln(f,"\tpop ax");
+		Ecriture.ecrireStringln(f,"\tor ax,bx");
+		Ecriture.ecrireStringln(f,"\tpush ax");
+		Ecriture.ecrireStringln(f,"");
 	}
 
 	/**
@@ -227,12 +233,12 @@ public class YVMasm extends YVM {
 		System.out.println("\tand ax,bx");
 		System.out.println("\tpush ax");
 		
-		Ecriture.ecrireStringln("\t; iand");
-		Ecriture.ecrireStringln("\tpop bx");
-		Ecriture.ecrireStringln("\tpop ax");
-		Ecriture.ecrireStringln("\tand ax,bx");
-		Ecriture.ecrireStringln("\tpush ax");
-		Ecriture.ecrireStringln("");
+		Ecriture.ecrireStringln(f,"\t; iand");
+		Ecriture.ecrireStringln(f,"\tpop bx");
+		Ecriture.ecrireStringln(f,"\tpop ax");
+		Ecriture.ecrireStringln(f,"\tand ax,bx");
+		Ecriture.ecrireStringln(f,"\tpush ax");
+		Ecriture.ecrireStringln(f,"");
 	}
 	
 	/**
@@ -248,15 +254,15 @@ public class YVMasm extends YVM {
 		System.out.println("\tjmp $+4");
 		System.out.println("\tpush word ptr " + Constantes.VRAI);
 		
-		Ecriture.ecrireStringln("\t; iinf");
-		Ecriture.ecrireStringln("\tpop bx");
-		Ecriture.ecrireStringln("\tpop ax");
-		Ecriture.ecrireStringln("\tcmp ax,bx");
-		Ecriture.ecrireStringln("\tjge $+6");
-		Ecriture.ecrireStringln("\tpush word ptr " + Constantes.FAUX);
-		Ecriture.ecrireStringln("\tjmp $+4");
-		Ecriture.ecrireStringln("\tpush word ptr " + Constantes.VRAI);
-		Ecriture.ecrireStringln("");
+		Ecriture.ecrireStringln(f,"\t; iinf");
+		Ecriture.ecrireStringln(f,"\tpop bx");
+		Ecriture.ecrireStringln(f,"\tpop ax");
+		Ecriture.ecrireStringln(f,"\tcmp ax,bx");
+		Ecriture.ecrireStringln(f,"\tjge $+6");
+		Ecriture.ecrireStringln(f,"\tpush word ptr " + Constantes.FAUX);
+		Ecriture.ecrireStringln(f,"\tjmp $+4");
+		Ecriture.ecrireStringln(f,"\tpush word ptr " + Constantes.VRAI);
+		Ecriture.ecrireStringln(f,"");
 	}
 	
 	/**
@@ -272,15 +278,15 @@ public class YVMasm extends YVM {
 		System.out.println("\tjmp $+4");
 		System.out.println("\tpush word ptr " + Constantes.VRAI);
 		
-		Ecriture.ecrireStringln("\t; isup");
-		Ecriture.ecrireStringln("\tpop bx");
-		Ecriture.ecrireStringln("\tpop ax");
-		Ecriture.ecrireStringln("\tcmp ax,bx");
-		Ecriture.ecrireStringln("\tjle $+6");
-		Ecriture.ecrireStringln("\tpush word ptr " + Constantes.FAUX);
-		Ecriture.ecrireStringln("\tjmp $+4");
-		Ecriture.ecrireStringln("\tpush word ptr " + Constantes.VRAI);
-		Ecriture.ecrireStringln("");
+		Ecriture.ecrireStringln(f,"\t; isup");
+		Ecriture.ecrireStringln(f,"\tpop bx");
+		Ecriture.ecrireStringln(f,"\tpop ax");
+		Ecriture.ecrireStringln(f,"\tcmp ax,bx");
+		Ecriture.ecrireStringln(f,"\tjle $+6");
+		Ecriture.ecrireStringln(f,"\tpush word ptr " + Constantes.FAUX);
+		Ecriture.ecrireStringln(f,"\tjmp $+4");
+		Ecriture.ecrireStringln(f,"\tpush word ptr " + Constantes.VRAI);
+		Ecriture.ecrireStringln(f,"");
 	}
 	
 	/**
@@ -296,15 +302,15 @@ public class YVMasm extends YVM {
 		System.out.println("\tjmp $+4");
 		System.out.println("\tpush word ptr " + Constantes.VRAI);
 		
-		Ecriture.ecrireStringln("\t; iinfegal");
-		Ecriture.ecrireStringln("\tpop bx");
-		Ecriture.ecrireStringln("\tpop ax");
-		Ecriture.ecrireStringln("\tcmp ax,bx");
-		Ecriture.ecrireStringln("\tjg $+6");
-		Ecriture.ecrireStringln("\tpush word ptr " + Constantes.FAUX);
-		Ecriture.ecrireStringln("\tjmp $+4");
-		Ecriture.ecrireStringln("\tpush word ptr " + Constantes.VRAI);
-		Ecriture.ecrireStringln("");
+		Ecriture.ecrireStringln(f,"\t; iinfegal");
+		Ecriture.ecrireStringln(f,"\tpop bx");
+		Ecriture.ecrireStringln(f,"\tpop ax");
+		Ecriture.ecrireStringln(f,"\tcmp ax,bx");
+		Ecriture.ecrireStringln(f,"\tjg $+6");
+		Ecriture.ecrireStringln(f,"\tpush word ptr " + Constantes.FAUX);
+		Ecriture.ecrireStringln(f,"\tjmp $+4");
+		Ecriture.ecrireStringln(f,"\tpush word ptr " + Constantes.VRAI);
+		Ecriture.ecrireStringln(f,"");
 	}
 	
 	/**
@@ -320,15 +326,15 @@ public class YVMasm extends YVM {
 		System.out.println("\tjmp $+4");
 		System.out.println("\tpush word ptr " + Constantes.VRAI);
 		
-		Ecriture.ecrireStringln("\t; isupegal");
-		Ecriture.ecrireStringln("\tpop bx");
-		Ecriture.ecrireStringln("\tpop ax");
-		Ecriture.ecrireStringln("\tcmp ax,bx");
-		Ecriture.ecrireStringln("\tjl $+6");
-		Ecriture.ecrireStringln("\tpush word ptr " + Constantes.FAUX);
-		Ecriture.ecrireStringln("\tjmp $+4");
-		Ecriture.ecrireStringln("\tpush word ptr " + Constantes.VRAI);
-		Ecriture.ecrireStringln("");
+		Ecriture.ecrireStringln(f,"\t; isupegal");
+		Ecriture.ecrireStringln(f,"\tpop bx");
+		Ecriture.ecrireStringln(f,"\tpop ax");
+		Ecriture.ecrireStringln(f,"\tcmp ax,bx");
+		Ecriture.ecrireStringln(f,"\tjl $+6");
+		Ecriture.ecrireStringln(f,"\tpush word ptr " + Constantes.FAUX);
+		Ecriture.ecrireStringln(f,"\tjmp $+4");
+		Ecriture.ecrireStringln(f,"\tpush word ptr " + Constantes.VRAI);
+		Ecriture.ecrireStringln(f,"");
 	}
 	
 	/**
@@ -344,15 +350,15 @@ public class YVMasm extends YVM {
 		System.out.println("\tjmp $+4");
 		System.out.println("\tpush word ptr " + Constantes.VRAI);
 		
-		Ecriture.ecrireStringln("\t; iegal");
-		Ecriture.ecrireStringln("\tpop bx");
-		Ecriture.ecrireStringln("\tpop ax");
-		Ecriture.ecrireStringln("\tcmp ax,bx");
-		Ecriture.ecrireStringln("\tje $+6");
-		Ecriture.ecrireStringln("\tpush word ptr " + Constantes.FAUX);
-		Ecriture.ecrireStringln("\tjmp $+4");
-		Ecriture.ecrireStringln("\tpush word ptr " + Constantes.VRAI);
-		Ecriture.ecrireStringln("");
+		Ecriture.ecrireStringln(f,"\t; iegal");
+		Ecriture.ecrireStringln(f,"\tpop bx");
+		Ecriture.ecrireStringln(f,"\tpop ax");
+		Ecriture.ecrireStringln(f,"\tcmp ax,bx");
+		Ecriture.ecrireStringln(f,"\tje $+6");
+		Ecriture.ecrireStringln(f,"\tpush word ptr " + Constantes.FAUX);
+		Ecriture.ecrireStringln(f,"\tjmp $+4");
+		Ecriture.ecrireStringln(f,"\tpush word ptr " + Constantes.VRAI);
+		Ecriture.ecrireStringln(f,"");
 	}
 	
 	/**
@@ -368,15 +374,15 @@ public class YVMasm extends YVM {
 		System.out.println("\tjmp $+4");
 		System.out.println("\tpush word ptr " + Constantes.VRAI);
 		
-		Ecriture.ecrireStringln("\t; idiff");
-		Ecriture.ecrireStringln("\tpop bx");
-		Ecriture.ecrireStringln("\tpop ax");
-		Ecriture.ecrireStringln("\tcmp ax,bx");
-		Ecriture.ecrireStringln("\tjne $+6");
-		Ecriture.ecrireStringln("\tpush word ptr " + Constantes.FAUX);
-		Ecriture.ecrireStringln("\tjmp $+4");
-		Ecriture.ecrireStringln("\tpush word ptr " + Constantes.VRAI);
-		Ecriture.ecrireStringln("");
+		Ecriture.ecrireStringln(f,"\t; idiff");
+		Ecriture.ecrireStringln(f,"\tpop bx");
+		Ecriture.ecrireStringln(f,"\tpop ax");
+		Ecriture.ecrireStringln(f,"\tcmp ax,bx");
+		Ecriture.ecrireStringln(f,"\tjne $+6");
+		Ecriture.ecrireStringln(f,"\tpush word ptr " + Constantes.FAUX);
+		Ecriture.ecrireStringln(f,"\tjmp $+4");
+		Ecriture.ecrireStringln(f,"\tpush word ptr " + Constantes.VRAI);
+		Ecriture.ecrireStringln(f,"");
 	}
 	
 	/**
@@ -388,11 +394,11 @@ public class YVMasm extends YVM {
 		System.out.println("\tneg ax");
 		System.out.println("\tpush ax");
 		
-		Ecriture.ecrireStringln("\t; ineg");
-		Ecriture.ecrireStringln("\tpop ax");
-		Ecriture.ecrireStringln("\tneg ax");
-		Ecriture.ecrireStringln("\tpush ax");
-		Ecriture.ecrireStringln("");
+		Ecriture.ecrireStringln(f,"\t; ineg");
+		Ecriture.ecrireStringln(f,"\tpop ax");
+		Ecriture.ecrireStringln(f,"\tneg ax");
+		Ecriture.ecrireStringln(f,"\tpush ax");
+		Ecriture.ecrireStringln(f,"");
 	}
 
 	/**
@@ -404,11 +410,11 @@ public class YVMasm extends YVM {
 		System.out.println("\tnot ax");
 		System.out.println("\tpush ax");
 		
-		Ecriture.ecrireStringln("\t; inot");
-		Ecriture.ecrireStringln("\tpop ax");
-		Ecriture.ecrireStringln("\tnot ax");
-		Ecriture.ecrireStringln("\tpush ax");
-		Ecriture.ecrireStringln("");
+		Ecriture.ecrireStringln(f,"\t; inot");
+		Ecriture.ecrireStringln(f,"\tpop ax");
+		Ecriture.ecrireStringln(f,"\tnot ax");
+		Ecriture.ecrireStringln(f,"\tpush ax");
+		Ecriture.ecrireStringln(f,"");
 	}
 	
 	/**
@@ -418,9 +424,9 @@ public class YVMasm extends YVM {
 	public void goto_(String etiq){
 		System.out.println("\tjmp " + etiq);
 		
-		Ecriture.ecrireStringln("\t; goto " + etiq);
-		Ecriture.ecrireStringln("\tjmp " + etiq);
-		Ecriture.ecrireStringln("");
+		Ecriture.ecrireStringln(f,"\t; goto " + etiq);
+		Ecriture.ecrireStringln(f,"\tjmp " + etiq);
+		Ecriture.ecrireStringln(f,"");
 	}
 	
 	/**
@@ -433,11 +439,11 @@ public class YVMasm extends YVM {
 		System.out.println("\tcmp ax," + Constantes.VRAI);
 		System.out.println("\tjne " + etiq);
 		
-		Ecriture.ecrireStringln("\t; iffaux " + etiq);
-		Ecriture.ecrireStringln("\tpop ax");
-		Ecriture.ecrireStringln("\tcmp ax," + Constantes.VRAI);
-		Ecriture.ecrireStringln("\tjne " + etiq);
-		Ecriture.ecrireStringln("");
+		Ecriture.ecrireStringln(f,"\t; iffaux " + etiq);
+		Ecriture.ecrireStringln(f,"\tpop ax");
+		Ecriture.ecrireStringln(f,"\tcmp ax," + Constantes.VRAI);
+		Ecriture.ecrireStringln(f,"\tjne " + etiq);
+		Ecriture.ecrireStringln(f,"");
 	}
 	
 	/**
@@ -452,12 +458,12 @@ public class YVMasm extends YVM {
 		System.out.println("\tcmp ax,bx");
 		System.out.println("\tjne " + etiq);
 		
-		Ecriture.ecrireStringln("\t; ifeq " + etiq);
-		Ecriture.ecrireStringln("\tpop ax");
-		Ecriture.ecrireStringln("\tpop bx");
-		Ecriture.ecrireStringln("\tcmp ax,bx");
-		Ecriture.ecrireStringln("\tjne " + etiq);
-		Ecriture.ecrireStringln("");
+		Ecriture.ecrireStringln(f,"\t; ifeq " + etiq);
+		Ecriture.ecrireStringln(f,"\tpop ax");
+		Ecriture.ecrireStringln(f,"\tpop bx");
+		Ecriture.ecrireStringln(f,"\tcmp ax,bx");
+		Ecriture.ecrireStringln(f,"\tjne " + etiq);
+		Ecriture.ecrireStringln(f,"");
 	}
 	
 	/**
@@ -467,9 +473,9 @@ public class YVMasm extends YVM {
 		System.out.println("\tcall ecrent");
 		System.out.println();
 		
-		Ecriture.ecrireStringln("\t; ecrireEnt");
-		Ecriture.ecrireStringln("\tcall ecrent");
-		Ecriture.ecrireStringln("");
+		Ecriture.ecrireStringln(f,"\t; ecrireEnt");
+		Ecriture.ecrireStringln(f,"\tcall ecrent");
+		Ecriture.ecrireStringln(f,"");
 	}
 	
 	/**
@@ -482,11 +488,11 @@ public class YVMasm extends YVM {
 		System.out.println("\tpush dx");
 		System.out.println("\tcall lirent");
 		
-		Ecriture.ecrireStringln("\t; lireEnt");
-		Ecriture.ecrireStringln("\tlea dx,[bp-6]");
-		Ecriture.ecrireStringln("\tpush dx");
-		Ecriture.ecrireStringln("\tcall lirent");
-		Ecriture.ecrireStringln("");
+		Ecriture.ecrireStringln(f,"\t; lireEnt");
+		Ecriture.ecrireStringln(f,"\tlea dx,[bp-6]");
+		Ecriture.ecrireStringln(f,"\tpush dx");
+		Ecriture.ecrireStringln(f,"\tcall lirent");
+		Ecriture.ecrireStringln(f,"");
 	}
 	
 	/**
@@ -495,9 +501,9 @@ public class YVMasm extends YVM {
 	public void aLaLigne(){
 		System.out.println("\tcall ligsuiv");
 		
-		Ecriture.ecrireStringln("\t; aLaLigne");
-		Ecriture.ecrireStringln("\tcall ligsuiv");
-		Ecriture.ecrireStringln("");
+		Ecriture.ecrireStringln(f,"\t; aLaLigne");
+		Ecriture.ecrireStringln(f,"\tcall ligsuiv");
+		Ecriture.ecrireStringln(f,"");
 	}
 	
 	/**
@@ -512,14 +518,14 @@ public class YVMasm extends YVM {
 		System.out.println("\tpush dx");
 		System.out.println("\tcall ecrch");
 		
-		Ecriture.ecrireStringln("\t; ecrireChaine \"" + chaine + "\"");
-		Ecriture.ecrireStringln(".DATA");
-		Ecriture.ecrireStringln("\tmess" + noMess + " DB \"" + chaine + "\"");
-		Ecriture.ecrireStringln(".CODE");
-		Ecriture.ecrireStringln("\tlea dx,mess" + noMess);
-		Ecriture.ecrireStringln("\tpush dx");
-		Ecriture.ecrireStringln("\tcall ecrch");
-		Ecriture.ecrireStringln("");
+		Ecriture.ecrireStringln(f,"\t; ecrireChaine \"" + chaine + "\"");
+		Ecriture.ecrireStringln(f,".DATA");
+		Ecriture.ecrireStringln(f,"\tmess" + noMess + " DB \"" + chaine + "\"");
+		Ecriture.ecrireStringln(f,".CODE");
+		Ecriture.ecrireStringln(f,"\tlea dx,mess" + noMess);
+		Ecriture.ecrireStringln(f,"\tpush dx");
+		Ecriture.ecrireStringln(f,"\tcall ecrch");
+		Ecriture.ecrireStringln(f,"");
 		
 		noMess++;
 	}
@@ -531,9 +537,9 @@ public class YVMasm extends YVM {
 	public void ouvreBloc(int nbVars){
 		System.out.println("\tenter " + nbVars * 2 + ",0");
 		
-		Ecriture.ecrireStringln("\t; ouvreBloc " + nbVars * 2);
-		Ecriture.ecrireStringln("\tenter " + nbVars * 2 + ",0");
-		Ecriture.ecrireStringln("");
+		Ecriture.ecrireStringln(f,"\t; ouvreBloc " + nbVars * 2);
+		Ecriture.ecrireStringln(f,"\tenter " + nbVars * 2 + ",0");
+		Ecriture.ecrireStringln(f,"");
 	}
 	
 	/**
@@ -544,10 +550,10 @@ public class YVMasm extends YVM {
 		System.out.println("leave");
 		System.out.println("ret " + nbVars * 2);
 		
-		Ecriture.ecrireStringln("; fermeBloc " + nbVars * 2);
-		Ecriture.ecrireStringln("leave");
-		Ecriture.ecrireStringln("ret " + nbVars * 2);
-		Ecriture.ecrireStringln("");
+		Ecriture.ecrireStringln(f,"; fermeBloc " + nbVars * 2);
+		Ecriture.ecrireStringln(f,"leave");
+		Ecriture.ecrireStringln(f,"ret " + nbVars * 2);
+		Ecriture.ecrireStringln(f,"");
 	}
 	
 	/**
@@ -558,10 +564,10 @@ public class YVMasm extends YVM {
 		System.out.println("\tpop ax");
 		System.out.println("\tmov [bp+" + offset + "],ax");
 		
-		Ecriture.ecrireStringln("\t; ireturn " + offset);
-		Ecriture.ecrireStringln("\tpop ax");
-		Ecriture.ecrireStringln("\tmov [bp+" + offset + "],ax");
-		Ecriture.ecrireStringln("");
+		Ecriture.ecrireStringln(f,"\t; ireturn " + offset);
+		Ecriture.ecrireStringln(f,"\tpop ax");
+		Ecriture.ecrireStringln(f,"\tmov [bp+" + offset + "],ax");
+		Ecriture.ecrireStringln(f,"");
 	}
 	
 	/**
@@ -570,9 +576,9 @@ public class YVMasm extends YVM {
 	public void reserveRetour(){
 		System.out.println("\tsub sp,2");
 		
-		Ecriture.ecrireStringln("\t; reserveRetour");
-		Ecriture.ecrireStringln("\tsub sp,2");
-		Ecriture.ecrireStringln("");
+		Ecriture.ecrireStringln(f,"\t; reserveRetour");
+		Ecriture.ecrireStringln(f,"\tsub sp,2");
+		Ecriture.ecrireStringln(f,"");
 	}
 	
 	/**
@@ -582,8 +588,8 @@ public class YVMasm extends YVM {
 	public void call(String nom){
 		System.out.println("\tcall " + nom);
 		
-		Ecriture.ecrireStringln("\t; call " + nom);
-		Ecriture.ecrireStringln("\tcall " + nom);
-		Ecriture.ecrireStringln("");
+		Ecriture.ecrireStringln(f,"\t; call " + nom);
+		Ecriture.ecrireStringln(f,"\tcall " + nom);
+		Ecriture.ecrireStringln(f,"");
 	}
 }
