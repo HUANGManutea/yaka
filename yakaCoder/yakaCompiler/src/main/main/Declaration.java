@@ -45,4 +45,8 @@ public class Declaration {
 		IdVar v = new IdVar(currentType, countVar*-2);
 		Yaka.tabIdent.add(currentIdent, v);
 	}
+	
+	public void reserveMemory() {
+		Yaka.yvm.ouvrePrinc(countVar);
+	}
 }

@@ -17,14 +17,22 @@ public class Expression {
 	}
 	
 	public void addIdent(String ident) {
-		addType(Yaka.tabIdent.find(ident).type);
+		Ident i = Yaka.tabIdent.find(ident);
+		if (i instanceof IdConst) {
+			Yaka.yvm.iconst(((IdConst)i).value);
+		} else {
+			Yaka.yvm.iload(((IdVar)i).offset);
+		}
+		addType(i.type);
 	}
 	
-	public void addInteger() {
+	public void addInteger(int value) {
+		Yaka.yvm.iconst(value);
 		addType(Type.INTEGER);
 	}
 	
-	public void addBoolean(){
+	public void addBoolean(int value){
+		Yaka.yvm.iconst(value);
 		addType(Type.BOOLEAN);
 	}
 	

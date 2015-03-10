@@ -3,7 +3,7 @@ package main;
 import main.Constantes.*;
 
 public class Yaka implements YakaConstants {
-  public static YVM yvm = new YVM();
+  public static YVM yvm = new YVMasm();
   public static TabIdent tabIdent = new TabIdent();
   public static Declaration declaration = new Declaration();
   public static Expression expression = new Expression();
@@ -75,6 +75,7 @@ public class Yaka implements YakaConstants {
       }
       declVar();
     }
+     declaration.reserveMemory();
     suiteExpr();
   }
 
@@ -116,11 +117,11 @@ public class Yaka implements YakaConstants {
       break;
     case VRAI:
       jj_consume_token(VRAI);
-                         declaration.declareConstByValue(Type.BOOLEAN, VRAI);
+                         declaration.declareConstByValue(Type.BOOLEAN, Constantes.VRAI);
       break;
     case FAUX:
       jj_consume_token(FAUX);
-                         declaration.declareConstByValue(Type.BOOLEAN, FAUX);
+                         declaration.declareConstByValue(Type.BOOLEAN, Constantes.FAUX);
       break;
     default:
       jj_la1[3] = jj_gen;
@@ -322,7 +323,7 @@ public class Yaka implements YakaConstants {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case entier:
       jj_consume_token(entier);
-                         expression.addInteger();
+                         expression.addInteger(YakaTokenManager.entierLu);
       break;
     case ident:
       jj_consume_token(ident);
@@ -330,11 +331,11 @@ public class Yaka implements YakaConstants {
       break;
     case VRAI:
       jj_consume_token(VRAI);
-                         expression.addBoolean();
+                         expression.addBoolean(Constantes.VRAI);
       break;
     case FAUX:
       jj_consume_token(FAUX);
-                         expression.addBoolean();
+                         expression.addBoolean(Constantes.FAUX);
       break;
     default:
       jj_la1[14] = jj_gen;

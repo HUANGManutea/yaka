@@ -19,7 +19,7 @@ PARSER_BEGIN(Yaka)
 import main.Constantes.*;
 
 public class Yaka {
-  public static YVM yvm = new YVM();
+  public static YVM yvm = new YVMasm();
   public static TabIdent tabIdent = new TabIdent();
   public static Declaration declaration = new Declaration();
   public static Expression expression = new Expression();
@@ -148,7 +148,8 @@ void analyse() : {}
 
 void bloc() : {}{
  (declConst())*
- (declVar())*		
+ (declVar())*		        
+   { declaration.reserveMemory(); }
    suiteExpr() 
 }
 
@@ -168,8 +169,8 @@ void defConst() : {}
 void valConst() : {}{
   <entier> 		{declaration.declareConstByValue(Type.INTEGER, YakaTokenManager.entierLu);}
  | <ident>		{declaration.declareConstByIdent(YakaTokenManager.identLu);}
- | <VRAI> 		{declaration.declareConstByValue(Type.BOOLEAN, VRAI);}
- | <FAUX> 		{declaration.declareConstByValue(Type.BOOLEAN, FAUX);}
+ | <VRAI> 		{declaration.declareConstByValue(Type.BOOLEAN, Constantes.VRAI);}
+ | <FAUX> 		{declaration.declareConstByValue(Type.BOOLEAN, Constantes.FAUX);}
 }
 
 
@@ -236,10 +237,10 @@ void primaire (): {}
 }
 
 void valeur () : {}
-{ <entier> 		{expression.addInteger();}
+{ <entier> 		{expression.addInteger(YakaTokenManager.entierLu);}
  | <ident> 		{expression.addIdent(YakaTokenManager.identLu);}
- | <VRAI> 		{expression.addBoolean();}
- | <FAUX> 		{expression.addBoolean();}
+ | <VRAI> 		{expression.addBoolean(Constantes.VRAI);}
+ | <FAUX> 		{expression.addBoolean(Constantes.FAUX);}
  
 }
 
