@@ -26,7 +26,7 @@ public class YVM {
 	 */
 	public void startProg(String nomProg){
 		fic = new File(nomProg);
-		Ecriture.ouvrir(nomProg);
+		f = Ecriture.ouvrir(nomProg);
 		entete();
 	}
 	
@@ -34,10 +34,10 @@ public class YVM {
 	 * Fin du programme et fermeture du fichier de sortie
 	 */
 	public void endProg(){
+		queue();
 		Ecriture.fermer(f);
 		if (!status_ok)
 			fic.delete();
-		queue();
 	}
 	
 	/**

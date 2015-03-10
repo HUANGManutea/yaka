@@ -16,12 +16,13 @@ options{
 PARSER_BEGIN(Yaka)
 
 
+import main.Constantes.*;
 
 public class Yaka {
-	public static YVM yvm;
-	public static TabIdent tabIdent;
-	public static Declaration declaration;
-	public static Expression expression;
+  public static YVM yvm = new YVM();
+  public static TabIdent tabIdent = new TabIdent();
+  public static Declaration declaration = new Declaration();
+  public static Expression expression = new Expression();
 
   public static void main(String args[]) { 
     Yaka analyseur;
@@ -140,9 +141,9 @@ TOKEN  :
 /**************************************/
 void analyse() : {}
 {
-   <PROGRAMME> <ident>	
+   <PROGRAMME> <ident>	{ yvm.startProg(YakaTokenManager.identLu); }
    bloc()
-   <FPROGRAMME> 
+   <FPROGRAMME>         { yvm.endProg(); }
 }
 
 void bloc() : {}{

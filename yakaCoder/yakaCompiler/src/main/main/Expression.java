@@ -16,15 +16,18 @@ public class Expression {
 		typeStack.push(t);
 	}
 	
-	public void addIdent(String ident){
+	public void addIdent(String ident) {
 		addType(Yaka.tabIdent.find(ident).type);
 	}
-	public void addInteger(){
-			addType(Type.INTEGER);
-		}
+	
+	public void addInteger() {
+		addType(Type.INTEGER);
+	}
+	
 	public void addBoolean(){
 		addType(Type.BOOLEAN);
 	}
+	
 	public void addOperator(String op){
 		opStack.push(op);
 	}
@@ -34,7 +37,7 @@ public class Expression {
 		case "-":
 			Yaka.yvm.ineg();
 			break;
-		case "NON";
+		case "NON":
 			Yaka.yvm.inot();
 			break;
 		default:
