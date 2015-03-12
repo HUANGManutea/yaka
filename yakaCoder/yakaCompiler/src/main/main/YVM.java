@@ -258,13 +258,21 @@ public class YVM {
 	}
 	
 	/**
+	 * Le booléen en sommet de pile est dépilée puis affichée
+	 */
+	public void ecrireBool(){
+		System.out.println("ecrireBool");
+		Ecriture.ecrireStringln(f,"ecrireBool");
+	}
+	
+	/**
 	 * Lecture d'un entier au clavier
 	 * Affectation de cet entier à l'adresse donnée par le sommet de pile
 	 * Dépiler le sommet de pile
 	 */
-	public void lireEnt(){
-		System.out.println("lireEnt");
-		Ecriture.ecrireStringln(f,"lireEnt");
+	public void lireEnt(int offset){
+		System.out.println("lireEnt " + offset);
+		Ecriture.ecrireStringln(f,"lireEnt " + offset);
 	}
 	
 	/**
@@ -280,8 +288,8 @@ public class YVM {
 	 * @param chaine
 	 */
 	public void ecrireChaine(String chaine){
-		System.out.println("ecrireChaine \"" + chaine + "\"");
-		Ecriture.ecrireStringln(f,"ecrireChaine \"" + chaine + "\"");
+		System.out.println("ecrireChaine " + chaine);
+		Ecriture.ecrireStringln(f,"ecrireChaine " + chaine);
 	}
 	
 	/**

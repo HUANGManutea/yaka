@@ -183,4 +183,7 @@ public class Expression {
 		}
 	}
 	
+	public Type popType() {
+		return typeStack.pop();
+	}
 }

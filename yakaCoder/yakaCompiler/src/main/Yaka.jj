@@ -19,10 +19,12 @@ PARSER_BEGIN(Yaka)
 import main.Constantes.*;
 
 public class Yaka {
-  public static YVM yvm = new YVMasm();
+  public static YVM yvm = new YVM();
   public static TabIdent tabIdent = new TabIdent();
   public static Declaration declaration = new Declaration();
   public static Expression expression = new Expression();
+  public static Affectation affectation = new Affectation();
+  public static InputOutput io = new InputOutput();
 
   public static void main(String args[]) { 
     Yaka analyseur;
@@ -150,7 +152,7 @@ void bloc() : {}{
  (declConst())*
  (declVar())*		        
    { declaration.reserveMemory(); }
-   suiteExpr() 
+   suiteInstr() 
 }
 
 void declConst() : {}
@@ -189,13 +191,37 @@ void type() :{}
    <ENTIER> 	{declaration.setCurrentType(Type.INTEGER);}
  | <BOOLEEN>	{declaration.setCurrentType(Type.BOOLEAN);}
 }
+
 /*
  * Syntaxe des instructions.
  */
-void suiteExpr() : {}
-{ (expression() (";" (expression())? )*)? }
 
+void suiteInstr() : {}
+{ (instruction() (";" (instruction())? )*)? }
 
+void instruction() : {}
+{
+  affectation()
+  | lecture()
+  | ecriture()
+}
+
+void affectation() : {}
+{
+  <ident>           {affectation.setCurrentIdent(YakaTokenManager.identLu);}
+  "=" expression()  {affectation.doAffect();}
+}
+
+void lecture() : {}
+{
+  <LIRE> "(" <ident> ")" {io.readInt(YakaTokenManager.identLu);}
+}
+
+void ecriture() : {}
+{
+  <ECRIRE> "(" (expression() {io.writeExpression();} | <chaine> {io.writeString(YakaTokenManager.chaineLue);}) ")"
+    | <ALALIGNE>  {yvm.aLaLigne();}
+}
 
 /*
  * Expression .

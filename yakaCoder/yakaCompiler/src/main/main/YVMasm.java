@@ -37,11 +37,11 @@ public class YVMasm extends YVM {
 	 * Début du programme
 	 */
 	public void entete(){
-		System.out.println("extern lirent:proc,");
-		System.out.println("extern ecrent:proc,");
-		System.out.println("extern ecrbool:proc,");
-		System.out.println("extern ecrch:proc,");
-		System.out.println("extern ligsuiv:proc");
+		System.out.println("extrn lirent:proc,");
+		System.out.println("extrn ecrent:proc,");
+		System.out.println("extrn ecrbool:proc,");
+		System.out.println("extrn ecrch:proc,");
+		System.out.println("extrn ligsuiv:proc");
 		System.out.println(".model SMALL");
 		System.out.println(".586");
 		System.out.println("");
@@ -50,11 +50,11 @@ public class YVMasm extends YVM {
 		System.out.println("\tSTARTUPCODE");
 		
 		Ecriture.ecrireStringln(f,"\t; entete");
-		Ecriture.ecrireStringln(f,"extern lirent:proc,");
-		Ecriture.ecrireStringln(f,"extern ecrent:proc,");
-		Ecriture.ecrireStringln(f,"extern ecrbool:proc,");
-		Ecriture.ecrireStringln(f,"extern ecrch:proc,");
-		Ecriture.ecrireStringln(f,"extern ligsuiv:proc");
+		Ecriture.ecrireStringln(f,"extrn lirent:proc,");
+		Ecriture.ecrireStringln(f,"extrn ecrent:proc,");
+		Ecriture.ecrireStringln(f,"extrn ecrbool:proc,");
+		Ecriture.ecrireStringln(f,"extrn ecrch:proc,");
+		Ecriture.ecrireStringln(f,"extrn ligsuiv:proc");
 		Ecriture.ecrireStringln(f,".model SMALL");
 		Ecriture.ecrireStringln(f,".586");
 		Ecriture.ecrireStringln(f,"");
@@ -85,11 +85,11 @@ public class YVMasm extends YVM {
 	 */
 	public void ouvrePrinc(int nbVars){
 		System.out.println("\tmov bp,sp");
-		System.out.println("\tsup sp," + nbVars * 2);
+		System.out.println("\tsub sp," + nbVars * 2);
 		
 		Ecriture.ecrireStringln(f,"\t; ouvrePrinc " + nbVars * 2);
 		Ecriture.ecrireStringln(f,"\tmov bp,sp");
-		Ecriture.ecrireStringln(f,"\tsup sp," + nbVars * 2);
+		Ecriture.ecrireStringln(f,"\tsub sp," + nbVars * 2);
 		Ecriture.ecrireStringln(f,"");
 	}
 	
@@ -495,17 +495,37 @@ public class YVMasm extends YVM {
 	}
 	
 	/**
+	 * Le booléen en sommet de pile est dépilée puis affichée
+	 */
+	public void ecrireBool(){
+		System.out.println("\tcall ecrbool");
+		System.out.println();
+		
+		Ecriture.ecrireStringln(f,"\t; ecrireBool");
+		Ecriture.ecrireStringln(f,"\tcall ecrbool");
+		Ecriture.ecrireStringln(f,"");
+	}
+	
+	/**
 	 * Lecture d'un entier au clavier
 	 * Affectation de cet entier à l'adresse donnée par le sommet de pile
 	 * Dépiler le sommet de pile
 	 */
-	public void lireEnt(){
-		System.out.println("\tlea dx,[bp-6]");
+	public void lireEnt(int offset) {
+		if (offset >= 0) {
+			System.out.println("\tlea dx,[bp+" + offset + "]");
+		} else {
+			System.out.println("\tlea dx,[bp" + offset + "]");		
+		}
 		System.out.println("\tpush dx");
 		System.out.println("\tcall lirent");
 		
 		Ecriture.ecrireStringln(f,"\t; lireEnt");
-		Ecriture.ecrireStringln(f,"\tlea dx,[bp-6]");
+		if (offset >= 0) {
+			Ecriture.ecrireStringln(f,"\tlea dx,[bp+" + offset + "]");
+		} else {
+			Ecriture.ecrireStringln(f,"\tlea dx,[bp" + offset + "]");		
+		}
 		Ecriture.ecrireStringln(f,"\tpush dx");
 		Ecriture.ecrireStringln(f,"\tcall lirent");
 		Ecriture.ecrireStringln(f,"");
@@ -527,16 +547,17 @@ public class YVMasm extends YVM {
 	 * @param chaine
 	 */
 	public void ecrireChaine(String chaine){
+		String asmString = chaine.substring(0, chaine.length()-1) + "$\"";
 		System.out.println(".DATA");
-		System.out.println("\tmess" + noMess + " DB \"" + chaine + "\"");
+		System.out.println("\tmess" + noMess + " DB " + asmString);
 		System.out.println(".CODE");
 		System.out.println("\tlea dx,mess" + noMess);
 		System.out.println("\tpush dx");
 		System.out.println("\tcall ecrch");
 		
-		Ecriture.ecrireStringln(f,"\t; ecrireChaine \"" + chaine + "\"");
+		Ecriture.ecrireStringln(f,"\t; ecrireChaine " + chaine);
 		Ecriture.ecrireStringln(f,".DATA");
-		Ecriture.ecrireStringln(f,"\tmess" + noMess + " DB \"" + chaine + "\"");
+		Ecriture.ecrireStringln(f,"\tmess" + noMess + " DB " + asmString);
 		Ecriture.ecrireStringln(f,".CODE");
 		Ecriture.ecrireStringln(f,"\tlea dx,mess" + noMess);
 		Ecriture.ecrireStringln(f,"\tpush dx");
