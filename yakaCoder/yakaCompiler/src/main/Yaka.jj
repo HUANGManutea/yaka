@@ -25,6 +25,7 @@ public class Yaka {
   public static Expression expression = new Expression();
   public static Affectation affectation = new Affectation();
   public static Iteration iteration = new Iteration();
+  public static Condition condition = new Condition();
   public static InputOutput io = new InputOutput();
 
   public static void main(String args[]) { 
@@ -206,6 +207,7 @@ void instruction() : {}
   | lecture()
   | ecriture()
   | iteration()
+  | condition()
 }
 
 void affectation() : {}
@@ -230,6 +232,14 @@ void iteration() : {}
   <TANTQUE> {iteration.start();} expression() {iteration.testExpression();}
   <FAIRE> suiteInstr()
   <FAIT> {iteration.repeat();}
+}
+
+void condition() : {}
+{
+  <SI> expression() {condition.testExpression();}
+  <ALORS> suiteInstr() {condition.startElseBlock();}
+  (<SINON> suiteInstr())?
+  <FSI> {condition.endIfBlock();} 
 }
 
 /*
