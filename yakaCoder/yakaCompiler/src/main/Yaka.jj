@@ -24,6 +24,7 @@ public class Yaka {
   public static Declaration declaration = new Declaration();
   public static Expression expression = new Expression();
   public static Affectation affectation = new Affectation();
+  public static Iteration iteration = new Iteration();
   public static InputOutput io = new InputOutput();
 
   public static void main(String args[]) { 
@@ -204,6 +205,7 @@ void instruction() : {}
   affectation()
   | lecture()
   | ecriture()
+  | iteration()
 }
 
 void affectation() : {}
@@ -221,6 +223,13 @@ void ecriture() : {}
 {
   <ECRIRE> "(" (expression() {io.writeExpression();} | <chaine> {io.writeString(YakaTokenManager.chaineLue);}) ")"
     | <ALALIGNE>  {yvm.aLaLigne();}
+}
+
+void iteration() : {}
+{
+  <TANTQUE> {iteration.start();} expression() {iteration.testExpression();}
+  <FAIRE> suiteInstr()
+  <FAIT> {iteration.repeat();}
 }
 
 /*

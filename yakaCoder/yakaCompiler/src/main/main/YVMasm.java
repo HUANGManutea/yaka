@@ -434,6 +434,15 @@ public class YVMasm extends YVM {
 	}
 	
 	/**
+	 * Ajout d'une étiquette
+	 * @param etiq Étiquette
+	 */
+	public void label(String etiq) {
+		System.out.println("\n" + etiq + ":");
+		Ecriture.ecrireStringln(f, "\n" + etiq + ":");
+	}
+	
+	/**
 	 * Saut inconditionnel
 	 * @param etiq	Étiquette où l'on se situe après l'appel de goto
 	 */
