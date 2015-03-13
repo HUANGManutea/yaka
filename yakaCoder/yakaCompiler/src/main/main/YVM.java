@@ -1,7 +1,6 @@
 package main;
 import java.io.OutputStream;
 import java.io.File;
-import java.nio.file.Path;
 
 /**
  * Classe de simulation de la Virtual Machine
@@ -11,6 +10,7 @@ public class YVM {
 	private OutputStream f;
 	private File fic;
 	private boolean status_ok;
+	private String nomProg;
 	
 	/**
 	 * Passage à un statut d'erreur
@@ -25,8 +25,9 @@ public class YVM {
 	 * @param nomProg	Nom du programme, utilisé pour nomme le fichier de sortie
 	 */
 	public void startProg(String nomProg){
-		fic = new File(nomProg);
-		f = Ecriture.ouvrir(nomProg);
+		fic = new File(nomProg + ".tmp");
+		f = Ecriture.ouvrir(nomProg + ".tmp");
+		this.nomProg = nomProg;
 		entete();
 	}
 	
@@ -38,6 +39,10 @@ public class YVM {
 		Ecriture.fermer(f);
 		if (!status_ok){
 			fic.delete();
+		} else {
+			File old = new File(nomProg);
+			old.delete();
+			fic.renameTo(old);
 		}
 	}
 	

@@ -11,17 +11,19 @@ public class YVMasm extends YVM {
 	private int noMess;
 	private File fic;
 	private boolean status_ok;
+	private String nomProg;
 	
 	/**
 	 * Début du programme
 	 * @param nomProg	Nom du programme, utilisé pour nomme le fichier de sortie
 	 */
 	public void startProg(String nomProg){
-		fic  = new File(nomProg+".asm");
-		f = Ecriture.ouvrir(nomProg + ".asm");
+		fic  = new File(nomProg+".asm.tmp");
+		f = Ecriture.ouvrir(nomProg + ".asm.tmp");
 		noMess = 0;
 		entete();
 		status_ok=true;
+		this.nomProg = nomProg;
 	}
 	
 	/**
@@ -40,6 +42,10 @@ public class YVMasm extends YVM {
 		Ecriture.fermer(f);
 		if (!status_ok){
 			fic.delete();
+		} else {
+			File old = new File(nomProg + ".asm");
+			old.delete();
+			fic.renameTo(old);
 		}
 	}
 	
