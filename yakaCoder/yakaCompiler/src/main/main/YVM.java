@@ -49,6 +49,11 @@ public class YVM {
 	}
 	
 	/**
+	 * Début du code
+	 */
+	public void startCode() {}
+	
+	/**
 	 * Fin du programme
 	 */
 	public void queue(){
