@@ -10,17 +10,26 @@ public class YVMasm extends YVM {
 	private OutputStream f;
 	private int noMess;
 	private File fic;
-	private boolean status_ok = true;
+	private boolean status_ok;
 	
 	/**
 	 * Début du programme
 	 * @param nomProg	Nom du programme, utilisé pour nomme le fichier de sortie
 	 */
 	public void startProg(String nomProg){
-		fic  = new File(nomProg);
+		fic  = new File(nomProg+".asm");
 		f = Ecriture.ouvrir(nomProg + ".asm");
 		noMess = 0;
 		entete();
+		status_ok=true;
+	}
+	
+	/**
+	 * Passage à un statut d'erreur
+	 * Une fois passé au statut d'erreur, le fichier ne sera pas créé
+	 */
+	public void erreur(){
+		status_ok = false;
 	}
 	
 	/**
@@ -29,8 +38,9 @@ public class YVMasm extends YVM {
 	public void endProg(){
 		queue();
 		Ecriture.fermer(f);
-		if (!status_ok)
+		if (!status_ok){
 			fic.delete();
+		}
 	}
 	
 	/**

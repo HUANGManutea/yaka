@@ -10,7 +10,7 @@ import java.nio.file.Path;
 public class YVM {
 	private OutputStream f;
 	private File fic;
-	private boolean status_ok = true;
+	private boolean status_ok;
 	
 	/**
 	 * Passage à un statut d'erreur
@@ -36,8 +36,9 @@ public class YVM {
 	public void endProg(){
 		queue();
 		Ecriture.fermer(f);
-		if (!status_ok)
+		if (!status_ok){
 			fic.delete();
+		}
 	}
 	
 	/**

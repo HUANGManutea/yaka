@@ -7,7 +7,8 @@ public class InputOutput {
 		if (Yaka.tabIdent.exists(ident)) {
 			Yaka.yvm.lireEnt(((IdVar)Yaka.tabIdent.find(ident)).offset);
 		} else {
-			// Throw error
+			System.out.println("InputOutput erreur affectation variable");
+			Yaka.yvm.erreur();
 		}
 	}
 	
@@ -18,7 +19,8 @@ public class InputOutput {
 		} else if (t == Type.BOOLEAN) {
 			Yaka.yvm.ecrireBool();
 		} else {
-			// type error
+			System.out.println("InputOutput type inconnu");
+			Yaka.yvm.erreur();
 		}
 	}
 	

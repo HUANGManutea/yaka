@@ -7,11 +7,12 @@ public class Declaration {
 	private Type currentType;
 	private int countVar;
 	
-	public void setCurrentIdent(String ident) {
+	public void setCurrentIdent(String ident){
 		if (!Yaka.tabIdent.exists(ident)) {
 			currentIdent = ident;
 		} else {
-			// Throw error
+			System.out.println("2 ident de même nom:" +ident);
+			Yaka.yvm.erreur();
 		}
 	}
 	
@@ -24,7 +25,7 @@ public class Declaration {
 		Yaka.tabIdent.add(currentIdent, c);
 	}
 	
-	public void declareConstByIdent(String ident) {
+	public void declareConstByIdent(String ident){
 		if (Yaka.tabIdent.exists(ident)) {
 			Ident tmp = Yaka.tabIdent.find(ident);
 			if (tmp instanceof IdConst) {
@@ -32,14 +33,16 @@ public class Declaration {
 				IdConst c1 = new IdConst(c2.type, c2.value);
 				Yaka.tabIdent.add(currentIdent, c1);
 			} else {
-				// Throw error
+				System.out.println("Ident "+ident+" non initialisé");
+				Yaka.yvm.erreur();
 			}
 		} else {
-			// Throw error
+			System.out.println("Ident "+ident+" non déclaré");
+			Yaka.yvm.erreur();
 		}
 	}
 	
-	public void declareVar(String ident) {
+	public void declareVar(String ident){
 		setCurrentIdent(ident);
 		countVar++;
 		IdVar v = new IdVar(currentType, countVar*-2);

@@ -5,20 +5,21 @@ import main.Constantes.*;
 public class Affectation {
 	private String currentIdent;
 	
-	public void setCurrentIdent(String ident) {
+	public void setCurrentIdent(String ident){
 		if (Yaka.tabIdent.exists(ident)) {
 			currentIdent = ident;
 		} else {
-			// Throw error
-			System.out.println(ident + " doesn't exist !");
+			System.out.println("Ident "+ident+" non déclaré");
+			Yaka.yvm.erreur();
 		}
 	}
 	
-	public void doAffect() {
+	public void doAffect(){
 		IdVar v = (IdVar) Yaka.tabIdent.find(currentIdent);
 		Type t = Yaka.expression.popType();
 		if (v.type != t) {
-			// type error
+			System.out.println("Erreur de type dans l'affectation");
+			Yaka.yvm.erreur();
 		}
 		
 		Yaka.yvm.istore(v.offset);
