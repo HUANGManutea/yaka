@@ -1,0 +1,17 @@
+PROGRAMME iter
+VAR ENTIER s,i,j,n;
+	ECRIRE("n=");
+	LIRE(n);
+	i=1;s=0;
+	TANTQUE i<=n FAIRE
+		j=0;
+		TANTQUE j<=n FAIRE
+			s=s+j;
+			j=j+1;
+		FAIT;
+		i=i+1;
+	FAIT;
+	ALALIGNE;
+	ECRIRE("s=");
+	ECRIRE(s);
+FPROGRAMME
