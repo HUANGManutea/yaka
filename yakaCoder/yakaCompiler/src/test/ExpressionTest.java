@@ -65,16 +65,6 @@ public class ExpressionTest {
 	}
 	
 	@Test
-	public void testCheckTypeLogiIntegerInteger(){
-		exp.addBoolean(0);
-		exp.addInteger(1);
-		exp.addOperator("<>");
-		exp.checkType();
-		assertEquals(exp.popType(),Type.ERROR);
-	}
-
-
-	@Test
 	public void testCheckTypeCompBoolBool(){
 		exp.addBoolean(0);
 		exp.addBoolean(1);
