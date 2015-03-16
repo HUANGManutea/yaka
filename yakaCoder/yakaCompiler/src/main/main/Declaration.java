@@ -23,7 +23,7 @@ public class Declaration {
 		if (!Yaka.tabIdent.exists(ident)) {
 			currentIdent = ident;
 		} else {
-			System.out.println("2 ident de même nom:" +ident);
+			System.out.println("2 ident de meme nom:" +ident);
 			Yaka.yvm.erreur();
 		}
 	}
@@ -45,11 +45,11 @@ public class Declaration {
 				IdConst c1 = new IdConst(c2.type, c2.value);
 				Yaka.tabIdent.add(currentIdent, c1);
 			} else {
-				System.out.println("Ident "+ident+" non initialisé");
+				System.out.println("Ident "+ident+" non initialise");
 				Yaka.yvm.erreur();
 			}
 		} else {
-			System.out.println("Ident "+ident+" non déclaré");
+			System.out.println("Ident "+ident+" non declare");
 			Yaka.yvm.erreur();
 		}
 	}

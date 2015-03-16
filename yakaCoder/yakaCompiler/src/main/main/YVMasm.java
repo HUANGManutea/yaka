@@ -61,7 +61,7 @@ public class YVMasm extends YVM {
 			System.out.println("extrn ecrch:proc,");
 			System.out.println("extrn ligsuiv:proc");
 			System.out.println(".model SMALL");
-			System.out.println(".586");
+			System.out.println(".486");
 			System.out.println("");
 			System.out.println(".CODE");
 		}
@@ -73,7 +73,7 @@ public class YVMasm extends YVM {
 		Ecriture.ecrireStringln(f,"extrn ecrch:proc,");
 		Ecriture.ecrireStringln(f,"extrn ligsuiv:proc");
 		Ecriture.ecrireStringln(f,".model SMALL");
-		Ecriture.ecrireStringln(f,".586");
+		Ecriture.ecrireStringln(f,".486");
 		Ecriture.ecrireStringln(f,"");
 		Ecriture.ecrireStringln(f,".CODE");
 	}
