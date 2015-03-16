@@ -3,7 +3,7 @@ package main;
 import main.Constantes.*;
 
 public class Yaka implements YakaConstants {
-  public static YVM yvm = new YVMasm();
+  public static YVM yvm = new YVM();
   public static TabIdent tabIdent = new TabIdent();
   public static Declaration declaration = new Declaration();
   public static Function function = new Function();
@@ -12,25 +12,36 @@ public class Yaka implements YakaConstants {
   public static Iteration iteration = new Iteration();
   public static Condition condition = new Condition();
   public static InputOutput io = new InputOutput();
+  public static int verbose = 0;
 
   public static void main(String args[]) {
     Yaka analyseur;
     java.io.InputStream input;
 
-    if (args.length==1) {
-      System.out.print(args[args.length-1] + ": ");
+    boolean fileProvided = false;
+    String filename = null;
+    for (String arg : args) {
+        if (arg.toCharArray()[0] == '-') {
+          if (arg.equals("-v")) verbose = 1;
+          if (arg.equals("-V")) verbose = 2;
+          if (arg.equals("-asm")) yvm = new YVMasm();
+        } else if (filename == null) {
+            fileProvided = true;
+            filename = arg;
+        }
+    }
+
+    if (fileProvided) {
+      System.out.print(filename + ": ");
       try {
-        input = new java.io.FileInputStream(args[args.length-1]+".yaka");
+        input = new java.io.FileInputStream(filename+".yaka");
       } catch (java.io.FileNotFoundException e) {
         System.out.println("Fichier introuvable.");
         return;
       }
-    } else if (args.length==0) {
+    } else {
       System.out.println("Lecture sur l'entree standard...");
       input = System.in;
-    } else {
-      System.out.println("Usage: java Gram [fichier]");
-      return;
     }
     try {
       analyseur = new Yaka(input);
