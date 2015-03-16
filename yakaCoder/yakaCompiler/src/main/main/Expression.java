@@ -21,18 +21,24 @@ public class Expression {
 	}
 	
 	public void addIdent(String ident) {
-		Ident i = Yaka.tabIdent.find(ident);
-		if (i instanceof IdConst) {
-			Yaka.yvm.iconst(((IdConst)i).value);
-		} else if (i instanceof IdVar) {
-			Yaka.yvm.iload(((IdVar)i).offset);
-		} else if (i instanceof IdFunc) {
-			Yaka.function.prepareCall(ident);
-			functions.push((IdFunc) i);
-			functionParamCounts.push(0);
+		if (!Yaka.tabIdent.exists(ident)) {
+			System.out.println("Erreur : la variable " + ident + " n'existe pas, ligne " + Yaka.token.beginLine);
+			typeStack.push(Type.ERROR);
+			Yaka.yvm.erreur();
+		} else {
+			Ident i = Yaka.tabIdent.find(ident);
+			if (i instanceof IdConst) {
+				Yaka.yvm.iconst(((IdConst)i).value);
+			} else if (i instanceof IdVar) {
+				Yaka.yvm.iload(((IdVar)i).offset);
+			} else if (i instanceof IdFunc) {
+				Yaka.function.prepareCall(ident);
+				functions.push((IdFunc) i);
+				functionParamCounts.push(0);
+			}
+			
+			addType(i.type);
 		}
-		
-		addType(i.type);
 	}
 	
 	public void addInteger(int value) {
