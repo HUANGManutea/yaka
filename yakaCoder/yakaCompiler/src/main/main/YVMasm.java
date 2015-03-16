@@ -85,6 +85,7 @@ public class YVMasm extends YVM {
 		if (Yaka.verbose != 0) {
 			System.out.println("debut :");
 			System.out.println("\tSTARTUPCODE");
+			if (Yaka.verbose == 2) System.out.println("");
 		}
 		
 		Ecriture.ecrireStringln(f,"debut :");
@@ -101,6 +102,7 @@ public class YVMasm extends YVM {
 			System.out.println("\tnop");
 			System.out.println("\texitcode");
 			System.out.println("\tend debut");
+			if (Yaka.verbose == 2) System.out.println("");
 		}
 		
 		Ecriture.ecrireStringln(f,"\t; queue");
@@ -119,6 +121,7 @@ public class YVMasm extends YVM {
 			if (Yaka.verbose == 2) System.out.println("\t; ouvrePrinc " + nbVars * 2);
 			System.out.println("\tmov bp,sp");
 			System.out.println("\tsub sp," + nbVars * 2);
+			if (Yaka.verbose == 2) System.out.println("");
 		}
 		
 		Ecriture.ecrireStringln(f,"\t; ouvrePrinc " + nbVars * 2);
@@ -135,6 +138,7 @@ public class YVMasm extends YVM {
 		if (Yaka.verbose != 0) {
 			if (Yaka.verbose == 2) System.out.println("\t; iconst " + val);
 			System.out.println("\tpush " + val);
+			if (Yaka.verbose == 2) System.out.println("");
 		}
 		
 		Ecriture.ecrireStringln(f,"\t; iconst " + val);
@@ -154,6 +158,7 @@ public class YVMasm extends YVM {
 			} else {
 				System.out.println("\tpush word ptr [bp" + offset + "]");
 			}
+			if (Yaka.verbose == 2) System.out.println("");
 		}
 		
 		Ecriture.ecrireStringln(f,"\t; iload " + offset);
@@ -178,6 +183,7 @@ public class YVMasm extends YVM {
 			} else {
 				System.out.println("\tmov word ptr[bp" + offset + "],ax");
 			}
+			if (Yaka.verbose == 2) System.out.println("");
 		}
 		
 		Ecriture.ecrireStringln(f,"\t; istore " + offset);
@@ -201,6 +207,7 @@ public class YVMasm extends YVM {
 			System.out.println("\tpop ax");
 			System.out.println("\tadd ax,bx");
 			System.out.println("\tpush ax");
+			if (Yaka.verbose == 2) System.out.println("");
 		}
 		
 		Ecriture.ecrireStringln(f,"\t; iadd");
@@ -222,6 +229,7 @@ public class YVMasm extends YVM {
 			System.out.println("\tpop ax");
 			System.out.println("\tsub ax,bx");
 			System.out.println("\tpush ax");
+			if (Yaka.verbose == 2) System.out.println("");
 		}
 			
 		Ecriture.ecrireStringln(f,"\t; isub");
@@ -243,6 +251,7 @@ public class YVMasm extends YVM {
 			System.out.println("\tpop ax");
 			System.out.println("\timul bx");
 			System.out.println("\tpush ax");
+			if (Yaka.verbose == 2) System.out.println("");
 		}
 			
 		Ecriture.ecrireStringln(f,"\t; imul");
@@ -265,6 +274,7 @@ public class YVMasm extends YVM {
 			System.out.println("\tcwd");
 			System.out.println("\tidiv bx");
 			System.out.println("\tpush ax");
+			if (Yaka.verbose == 2) System.out.println("");
 		}
 			
 		Ecriture.ecrireStringln(f,"\t; idiv");
@@ -287,6 +297,7 @@ public class YVMasm extends YVM {
 			System.out.println("\tpop ax");
 			System.out.println("\tor ax,bx");
 			System.out.println("\tpush ax");
+			if (Yaka.verbose == 2) System.out.println("");
 		}
 		
 		Ecriture.ecrireStringln(f,"\t; ior");
@@ -308,6 +319,7 @@ public class YVMasm extends YVM {
 			System.out.println("\tpop ax");
 			System.out.println("\tand ax,bx");
 			System.out.println("\tpush ax");
+			if (Yaka.verbose == 2) System.out.println("");
 		}
 		
 		Ecriture.ecrireStringln(f,"\t; iand");
@@ -332,6 +344,7 @@ public class YVMasm extends YVM {
 			System.out.println("\tpush " + Constantes.VRAI);
 			System.out.println("\tjmp $+4");
 			System.out.println("\tpush " + Constantes.FAUX);
+			if (Yaka.verbose == 2) System.out.println("");
 		}
 		
 		Ecriture.ecrireStringln(f,"\t; iinf");
@@ -359,6 +372,7 @@ public class YVMasm extends YVM {
 			System.out.println("\tpush " + Constantes.VRAI);
 			System.out.println("\tjmp $+4");
 			System.out.println("\tpush " + Constantes.FAUX);
+			if (Yaka.verbose == 2) System.out.println("");
 		}
 		
 		Ecriture.ecrireStringln(f,"\t; isup");
@@ -386,6 +400,7 @@ public class YVMasm extends YVM {
 			System.out.println("\tpush " + Constantes.VRAI);
 			System.out.println("\tjmp $+4");
 			System.out.println("\tpush " + Constantes.FAUX);
+			if (Yaka.verbose == 2) System.out.println("");
 		}
 		
 		Ecriture.ecrireStringln(f,"\t; iinfegal");
@@ -413,6 +428,7 @@ public class YVMasm extends YVM {
 			System.out.println("\tpush " + Constantes.VRAI);
 			System.out.println("\tjmp $+4");
 			System.out.println("\tpush " + Constantes.FAUX);
+			if (Yaka.verbose == 2) System.out.println("");
 		}
 		
 		Ecriture.ecrireStringln(f,"\t; isupegal");
@@ -440,6 +456,7 @@ public class YVMasm extends YVM {
 			System.out.println("\tpush " + Constantes.FAUX);
 			System.out.println("\tjmp $+4");
 			System.out.println("\tpush " + Constantes.VRAI);
+			if (Yaka.verbose == 2) System.out.println("");
 		}
 		
 		Ecriture.ecrireStringln(f,"\t; iegal");
@@ -467,6 +484,7 @@ public class YVMasm extends YVM {
 			System.out.println("\tpush " + Constantes.FAUX);
 			System.out.println("\tjmp $+4");
 			System.out.println("\tpush " + Constantes.VRAI);
+			if (Yaka.verbose == 2) System.out.println("");
 		}
 		
 		Ecriture.ecrireStringln(f,"\t; idiff");
@@ -490,6 +508,7 @@ public class YVMasm extends YVM {
 			System.out.println("\tpop ax");
 			System.out.println("\tneg ax");
 			System.out.println("\tpush ax");
+			if (Yaka.verbose == 2) System.out.println("");
 		}
 		
 		Ecriture.ecrireStringln(f,"\t; ineg");
@@ -509,6 +528,7 @@ public class YVMasm extends YVM {
 			System.out.println("\tpop ax");
 			System.out.println("\tnot ax");
 			System.out.println("\tpush ax");
+			if (Yaka.verbose == 2) System.out.println("");
 		}
 		
 		Ecriture.ecrireStringln(f,"\t; inot");
@@ -525,6 +545,7 @@ public class YVMasm extends YVM {
 	public void label(String etiq) {
 		if (Yaka.verbose != 0)
 			System.out.println("\n" + etiq + ":");
+		if (Yaka.verbose == 2) System.out.println("");
 		Ecriture.ecrireStringln(f, "\n" + etiq + ":");
 	}
 	
@@ -536,6 +557,7 @@ public class YVMasm extends YVM {
 		if (Yaka.verbose != 0) {
 			if (Yaka.verbose == 2) System.out.println("\t; goto" + etiq);
 			System.out.println("\tjmp " + etiq);
+			if (Yaka.verbose == 2) System.out.println("");
 		}
 		
 		Ecriture.ecrireStringln(f,"\t; goto " + etiq);
@@ -554,6 +576,7 @@ public class YVMasm extends YVM {
 			System.out.println("\tpop ax");
 			System.out.println("\tcmp ax," + Constantes.VRAI);
 			System.out.println("\tjne " + etiq);
+			if (Yaka.verbose == 2) System.out.println("");
 		}
 		
 		Ecriture.ecrireStringln(f,"\t; iffaux " + etiq);
@@ -576,6 +599,7 @@ public class YVMasm extends YVM {
 			System.out.println("\tpop bx");
 			System.out.println("\tcmp ax,bx");
 			System.out.println("\tjne " + etiq);
+			if (Yaka.verbose == 2) System.out.println("");
 		}
 		
 		Ecriture.ecrireStringln(f,"\t; ifeq " + etiq);
@@ -594,6 +618,7 @@ public class YVMasm extends YVM {
 			if (Yaka.verbose == 2) System.out.println("\t; ecrireEnt");
 			System.out.println("\tcall ecrent");
 			System.out.println();
+			if (Yaka.verbose == 2) System.out.println("");
 		}
 		
 		Ecriture.ecrireStringln(f,"\t; ecrireEnt");
@@ -609,6 +634,7 @@ public class YVMasm extends YVM {
 			if (Yaka.verbose == 2) System.out.println("\t; ecrireBool");
 			System.out.println("\tcall ecrbool");
 			System.out.println();
+			if (Yaka.verbose == 2) System.out.println("");
 		}
 		
 		Ecriture.ecrireStringln(f,"\t; ecrireBool");
@@ -631,6 +657,7 @@ public class YVMasm extends YVM {
 			}
 			System.out.println("\tpush dx");
 			System.out.println("\tcall lirent");
+			if (Yaka.verbose == 2) System.out.println("");
 		}
 		
 		Ecriture.ecrireStringln(f,"\t; lireEnt");
@@ -651,6 +678,7 @@ public class YVMasm extends YVM {
 		if (Yaka.verbose != 0) {
 			if (Yaka.verbose == 2) System.out.println("\t; aLaLigne");
 			System.out.println("\tcall ligsuiv");
+			if (Yaka.verbose == 2) System.out.println("");
 		}
 		
 		Ecriture.ecrireStringln(f,"\t; aLaLigne");
@@ -663,15 +691,16 @@ public class YVMasm extends YVM {
 	 * @param chaine
 	 */
 	public void ecrireChaine(String chaine){
+		String asmString = chaine.substring(0, chaine.length()-1) + "$\"";
 		if (Yaka.verbose != 0) {
 			if (Yaka.verbose == 2) System.out.println("\t; ecrireChaine " + chaine);
-			String asmString = chaine.substring(0, chaine.length()-1) + "$\"";
 			System.out.println(".DATA");
 			System.out.println("\tmess" + noMess + " DB " + asmString);
 			System.out.println(".CODE");
 			System.out.println("\tlea dx,mess" + noMess);
 			System.out.println("\tpush dx");
 			System.out.println("\tcall ecrch");
+			if (Yaka.verbose == 2) System.out.println("");
 		}
 		
 		Ecriture.ecrireStringln(f,"\t; ecrireChaine " + chaine);
@@ -694,6 +723,7 @@ public class YVMasm extends YVM {
 		if (Yaka.verbose != 0) {
 			if (Yaka.verbose == 2) System.out.println("\t; ouvreBloc " + nbVars * 2);
 			System.out.println("\tenter " + nbVars * 2 + ",0");
+			if (Yaka.verbose == 2) System.out.println("");
 		}
 		
 		Ecriture.ecrireStringln(f,"\t; ouvreBloc " + nbVars * 2);
@@ -710,6 +740,7 @@ public class YVMasm extends YVM {
 			if (Yaka.verbose == 2) System.out.println("\t; fermeBloc " + nbVars * 2);
 			System.out.println("\tleave");
 			System.out.println("\tret " + nbVars * 2);
+			if (Yaka.verbose == 2) System.out.println("");
 		}
 		
 		Ecriture.ecrireStringln(f,"\t; fermeBloc " + nbVars * 2);
@@ -727,6 +758,7 @@ public class YVMasm extends YVM {
 			if (Yaka.verbose == 2) System.out.println("\t; ireturn " + offset);
 			System.out.println("\tpop ax");
 			System.out.println("\tmov [bp+" + offset + "],ax");
+			if (Yaka.verbose == 2) System.out.println("");
 		}
 		
 		Ecriture.ecrireStringln(f,"\t; ireturn " + offset);
@@ -742,6 +774,7 @@ public class YVMasm extends YVM {
 		if (Yaka.verbose != 0) {
 			if (Yaka.verbose == 2) System.out.println("\t; reserveRetour");
 			System.out.println("\tsub sp,2");
+			if (Yaka.verbose == 2) System.out.println("");
 		}
 		
 		Ecriture.ecrireStringln(f,"\t; reserveRetour");
@@ -757,6 +790,7 @@ public class YVMasm extends YVM {
 		if (Yaka.verbose != 0) {
 			if (Yaka.verbose == 2) System.out.println("\t; call " + nom);
 			System.out.println("\tcall " + nom);
+			if (Yaka.verbose == 2) System.out.println("");
 		}
 		
 		Ecriture.ecrireStringln(f,"\t; call " + nom);
