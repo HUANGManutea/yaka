@@ -189,4 +189,7 @@ public class Expression {
 	public Type popType() {
 		return typeStack.pop();
 	}
+	public String popOp() {
+		return opStack.pop();
+	}
 }
