@@ -1,4 +1,4 @@
-package test;
+//package test;
 
 import static org.junit.Assert.*;
 import main.Constantes.Type;
@@ -64,16 +64,6 @@ public class ExpressionTest {
 		assertEquals(exp.popType(),Type.ERROR);
 	}
 	
-	@Test
-	public void testCheckTypeLogiIntegerInteger(){
-		exp.addBoolean(0);
-		exp.addInteger(1);
-		exp.addOperator("<>");
-		exp.checkType();
-		assertEquals(exp.popType(),Type.ERROR);
-	}
-
-
 	@Test
 	public void testCheckTypeCompBoolBool(){
 		exp.addBoolean(0);

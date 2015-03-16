@@ -50,7 +50,7 @@ public class YVM {
 	 * Début du programme
 	 */
 	public void entete(){
-		System.out.println("entete");
+		if (Yaka.verbose != 0) System.out.println("entete");
 		Ecriture.ecrireStringln(f,"\tentete");
 	}
 	
@@ -63,7 +63,7 @@ public class YVM {
 	 * Fin du programme
 	 */
 	public void queue(){
-		System.out.println("queue");
+		if (Yaka.verbose != 0) System.out.println("queue");
 		Ecriture.ecrireStringln(f,"\tqueue");
 	}
 	
@@ -72,7 +72,7 @@ public class YVM {
 	 * @param nbVars	Nombre de variables du programme
 	 */
 	public void ouvrePrinc(int nbVars){
-		System.out.println("ouvrePrinc " + nbVars * 2);
+		if (Yaka.verbose != 0) System.out.println("ouvrePrinc " + nbVars * 2);
 		Ecriture.ecrireStringln(f,"\touvrePrinc " + nbVars * 2);
 	}
 	
@@ -81,7 +81,7 @@ public class YVM {
 	 * @param val	Valeur à empiler
 	 */
 	public void iconst(int val){
-		System.out.println("iconst " + val);
+		if (Yaka.verbose != 0) System.out.println("iconst " + val);
 		Ecriture.ecrireStringln(f,"\ticonst " + val);
 	}
 	
@@ -90,7 +90,7 @@ public class YVM {
 	 * @param offset	Adresse de la variable à lire
 	 */
 	public void iload(int offset){
-		System.out.println("iload " + offset);
+		if (Yaka.verbose != 0) System.out.println("iload " + offset);
 		Ecriture.ecrireStringln(f,"\tiload " + offset);
 	}
 	
@@ -99,7 +99,7 @@ public class YVM {
 	 * @param offset	Adresse de la variable à affecter
 	 */
 	public void istore(int offset){
-		System.out.println("istore " + offset);
+		if (Yaka.verbose != 0) System.out.println("istore " + offset);
 		Ecriture.ecrireStringln(f,"\tistore " + offset);
 	}
 	
@@ -109,7 +109,7 @@ public class YVM {
 	 * @return
 	 */
 	public void iadd(){
-		System.out.println("iadd");
+		if (Yaka.verbose != 0) System.out.println("iadd");
 		Ecriture.ecrireStringln(f,"\tiadd");
 	}
 	
@@ -118,7 +118,7 @@ public class YVM {
 	 * Dépile deux valeurs entières et empile le résultat de la soustraction
 	 */
 	public void isub(){
-		System.out.println("isub");
+		if (Yaka.verbose != 0) System.out.println("isub");
 		Ecriture.ecrireStringln(f,"\tisub");
 	}
 	
@@ -127,7 +127,7 @@ public class YVM {
 	 * Dépile deux valeurs entières et empile le résultat du produit
 	 */
 	public void imul(){
-		System.out.println("imul");
+		if (Yaka.verbose != 0) System.out.println("imul");
 		Ecriture.ecrireStringln(f,"\timul");
 	}
 	
@@ -136,7 +136,7 @@ public class YVM {
 	 * Dépile deux valeurs entières et empile le résultat de la division
 	 */
 	public void idiv(){
-		System.out.println("idiv");
+		if (Yaka.verbose != 0) System.out.println("idiv");
 		Ecriture.ecrireStringln(f,"\tidiv");
 	}
 	
@@ -145,7 +145,7 @@ public class YVM {
 	 * Dépile deux valeurs booléennes et empile le résultat de A OU B
 	 */
 	public void ior(){
-		System.out.println("ior");
+		if (Yaka.verbose != 0) System.out.println("ior");
 		Ecriture.ecrireStringln(f,"\tior");
 	}
 
@@ -154,7 +154,7 @@ public class YVM {
 	 * Dépile deux valeurs booléennes et empile le résultat de A ET B
 	 */
 	public void iand(){
-		System.out.println("iand");
+		if (Yaka.verbose != 0) System.out.println("iand");
 		Ecriture.ecrireStringln(f,"\tiand");
 	}
 	
@@ -163,7 +163,7 @@ public class YVM {
 	 * Dépile deux valeurs entières et empile le résultat du test A < B
 	 */
 	public void iinf(){
-		System.out.println("iinf");
+		if (Yaka.verbose != 0) System.out.println("iinf");
 		Ecriture.ecrireStringln(f,"\tiinf");
 	}
 	
@@ -172,7 +172,7 @@ public class YVM {
 	 * Dépile deux valeurs entières et empile le résultat du test A > B
 	 */
 	public void isup(){
-		System.out.println("isup");
+		if (Yaka.verbose != 0) System.out.println("isup");
 		Ecriture.ecrireStringln(f,"\tisup");
 	}
 	
@@ -181,7 +181,7 @@ public class YVM {
 	 * Dépile deux valeurs entières et empile le résultat du test A <= B
 	 */
 	public void iinfegal(){
-		System.out.println("iinfegal");
+		if (Yaka.verbose != 0) System.out.println("iinfegal");
 		Ecriture.ecrireStringln(f,"\tiinfegal");
 	}
 	
@@ -190,7 +190,7 @@ public class YVM {
 	 * Dépile deux valeurs entières et empile le résultat du test A >= B
 	 */
 	public void isupegal(){
-		System.out.println("isupegal");
+		if (Yaka.verbose != 0) System.out.println("isupegal");
 		Ecriture.ecrireStringln(f,"\tisupegal");
 	}
 	
@@ -199,7 +199,7 @@ public class YVM {
 	 * Dépile deux valeurs entières et empile le résultat du test A == B
 	 */
 	public void iegal(){
-		System.out.println("iegal");
+		if (Yaka.verbose != 0) System.out.println("iegal");
 		Ecriture.ecrireStringln(f,"\tiegal");
 	}
 	
@@ -208,7 +208,7 @@ public class YVM {
 	 * Dépile deux valeurs entières et empile le résultat du test A != B
 	 */
 	public void idiff(){
-		System.out.println("idiff");
+		if (Yaka.verbose != 0) System.out.println("idiff");
 		Ecriture.ecrireStringln(f,"\tidiff");
 	}
 	
@@ -217,7 +217,7 @@ public class YVM {
 	 * Dépile l'entier A et empile -A
 	 */
 	public void ineg(){
-		System.out.println("ineg");
+		if (Yaka.verbose != 0) System.out.println("ineg");
 		Ecriture.ecrireStringln(f,"\tineg");
 	}
 
@@ -226,7 +226,7 @@ public class YVM {
 	 * Dépile un booléen et empile sa négation
 	 */
 	public void inot(){
-		System.out.println("inot");
+		if (Yaka.verbose != 0) System.out.println("inot");
 		Ecriture.ecrireStringln(f,"\tinot");
 	}
 	
@@ -235,7 +235,7 @@ public class YVM {
 	 * @param etiq Étiquette
 	 */
 	public void label(String etiq) {
-		System.out.println("\n" + etiq + ":");
+		if (Yaka.verbose != 0) System.out.println("\n" + etiq + ":");
 		Ecriture.ecrireStringln(f, "\n" + etiq + ":");
 	}
 	
@@ -244,7 +244,7 @@ public class YVM {
 	 * @param etiq	Étiquette où l'on se situe après l'appel de goto
 	 */
 	public void goto_(String etiq){
-		System.out.println("goto " + etiq);
+		if (Yaka.verbose != 0) System.out.println("goto " + etiq);
 		Ecriture.ecrireStringln(f,"\tgoto " + etiq);
 	}
 	
@@ -254,7 +254,7 @@ public class YVM {
 	 * @param etiq	Étiquette 
 	 */
 	public void iffaux(String etiq){
-		System.out.println("iffaux " + etiq);
+		if (Yaka.verbose != 0) System.out.println("iffaux " + etiq);
 		Ecriture.ecrireStringln(f,"\tiffaux " + etiq);
 	}
 	
@@ -265,7 +265,7 @@ public class YVM {
 	 * @param etiq	Étiquette
 	 */
 	public void ifeq(String etiq){
-		System.out.println("ifeq " + etiq);
+		if (Yaka.verbose != 0) System.out.println("ifeq " + etiq);
 		Ecriture.ecrireStringln(f,"\tifeq " + etiq);
 	}
 	
@@ -273,7 +273,7 @@ public class YVM {
 	 * La valeur en sommet de pile est dépilée puis affichée
 	 */
 	public void ecrireEnt(){
-		System.out.println("ecrireEnt");
+		if (Yaka.verbose != 0) System.out.println("ecrireEnt");
 		Ecriture.ecrireStringln(f,"\tecrireEnt");
 	}
 	
@@ -281,7 +281,7 @@ public class YVM {
 	 * Le booléen en sommet de pile est dépilée puis affichée
 	 */
 	public void ecrireBool(){
-		System.out.println("ecrireBool");
+		if (Yaka.verbose != 0) System.out.println("ecrireBool");
 		Ecriture.ecrireStringln(f,"\tecrireBool");
 	}
 	
@@ -291,7 +291,7 @@ public class YVM {
 	 * Dépiler le sommet de pile
 	 */
 	public void lireEnt(int offset){
-		System.out.println("lireEnt " + offset);
+		if (Yaka.verbose != 0) System.out.println("lireEnt " + offset);
 		Ecriture.ecrireStringln(f,"\tlireEnt " + offset);
 	}
 	
@@ -299,7 +299,7 @@ public class YVM {
 	 * Passage à la ligne
 	 */
 	public void aLaLigne(){
-		System.out.println("aLaLigne");
+		if (Yaka.verbose != 0) System.out.println("aLaLigne");
 		Ecriture.ecrireStringln(f,"\taLaLigne");
 	}
 	
@@ -308,7 +308,7 @@ public class YVM {
 	 * @param chaine
 	 */
 	public void ecrireChaine(String chaine){
-		System.out.println("ecrireChaine " + chaine);
+		if (Yaka.verbose != 0) System.out.println("ecrireChaine " + chaine);
 		Ecriture.ecrireStringln(f,"\tecrireChaine " + chaine);
 	}
 	
@@ -317,7 +317,7 @@ public class YVM {
 	 * @param nbVars	Nombre de variables mémoire à allouer
 	 */
 	public void ouvreBloc(int nbVars){
-		System.out.println("ouvreBloc " + nbVars * 2);
+		if (Yaka.verbose != 0) System.out.println("ouvreBloc " + nbVars * 2);
 		Ecriture.ecrireStringln(f,"\touvreBloc " + nbVars * 2);
 	}
 	
@@ -326,7 +326,7 @@ public class YVM {
 	 * @param nbVars	Nombre de variables mémoire à allouer
 	 */
 	public void fermeBloc(int nbVars){
-		System.out.println("fermeBloc " + nbVars * 2);
+		if (Yaka.verbose != 0) System.out.println("fermeBloc " + nbVars * 2);
 		Ecriture.ecrireStringln(f,"\tfermeBloc " + nbVars * 2);
 	}
 	
@@ -335,7 +335,7 @@ public class YVM {
 	 * @param offset	Adresse où stocker
 	 */
 	public void ireturn(int offset){
-		System.out.println("ireturn " + offset);
+		if (Yaka.verbose != 0) System.out.println("ireturn " + offset);
 		Ecriture.ecrireStringln(f,"\tireturn " + offset);
 	}
 	
@@ -343,7 +343,7 @@ public class YVM {
 	 * Réservation d'une place dans la pile pour le résultat de retour d'une fonction
 	 */
 	public void reserveRetour(){
-		System.out.println("reserveRetour");
+		if (Yaka.verbose != 0) System.out.println("reserveRetour");
 		Ecriture.ecrireStringln(f,"\treserveRetour");
 	}
 	
@@ -352,7 +352,7 @@ public class YVM {
 	 * @param nom	Fonction à appeler
 	 */
 	public void call(String nom){
-		System.out.println("call " + nom);
+		if (Yaka.verbose != 0) System.out.println("call " + nom);
 		Ecriture.ecrireStringln(f,"\tcall " + nom);
 	}
 }
