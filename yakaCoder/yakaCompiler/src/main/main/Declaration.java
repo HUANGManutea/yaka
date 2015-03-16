@@ -61,6 +61,14 @@ public class Declaration {
 		Yaka.yvm.label(ident);
 	}
 	
+	public void checkReturnType() {
+		Type t = Yaka.expression.popType();
+		if (currentFunction.type != t) {
+			System.out.println("Erreur de type de retour, ligne " + Yaka.token.beginLine);
+			Yaka.yvm.erreur();
+		}
+	}
+	
 	public void endFunction() {
 		paramNames = new ArrayList<String>();
 		paramTypes = new ArrayList<Type>();
@@ -81,6 +89,8 @@ public class Declaration {
 			IdVar para = new IdVar(paramTypes.get(i-1), offset);
 			Yaka.tabIdent.add(paramNames.get(i-1), para);
 		}
+		
+		currentFunction.paramTypes = paramTypes;
 	}
 	
 	public void declareVar(String ident) {

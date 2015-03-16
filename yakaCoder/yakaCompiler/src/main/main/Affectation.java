@@ -18,7 +18,7 @@ public class Affectation {
 		IdVar v = (IdVar) Yaka.tabIdent.find(currentIdent);
 		Type t = Yaka.expression.popType();
 		if (v.type != t) {
-			System.out.println("Erreur de type dans l'affectation");
+			System.out.println("Erreur de type dans l'affectation, ligne " + Yaka.token.beginLine);
 			Yaka.yvm.erreur();
 		}
 		

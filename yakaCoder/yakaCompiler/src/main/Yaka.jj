@@ -277,7 +277,7 @@ void condition() : {}
 
 void retourne() : {}
 {
-  <RETOURNE> expression() { function.rturn(); }
+  <RETOURNE> expression() { declaration.checkReturnType(); function.rturn(); }
 }
 
 /*
@@ -321,14 +321,14 @@ void primaire (): {}
 
 void valeur () : {}
 { <entier> 		{ expression.addInteger(YakaTokenManager.entierLu); }
- | <ident> 		{ expression.addIdent(YakaTokenManager.identLu); } ( { Yaka.yvm.reserveRetour(); } argumentsFonction() { Yaka.function.call(); })?
+ | <ident> 		{ expression.addIdent(YakaTokenManager.identLu); } ( { Yaka.yvm.reserveRetour(); } argumentsFonction() { Yaka.expression.checkParams(); Yaka.function.call(); })?
  | <VRAI> 		{ expression.addBoolean(Constantes.VRAI); }
  | <FAUX> 		{ expression.addBoolean(Constantes.FAUX); }
 }
 
 void argumentsFonction() : {}
 {
-  "(" (expression() ("," expression())*)? ")"
+  "(" (expression() { Yaka.expression.incParamCount(); } ("," expression() { Yaka.expression.incParamCount(); } )*)? ")"
 }
 
 void opRel() : {}

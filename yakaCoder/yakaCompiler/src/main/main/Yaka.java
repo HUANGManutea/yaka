@@ -408,7 +408,7 @@ public class Yaka implements YakaConstants {
   static final public void retourne() throws ParseException {
     jj_consume_token(RETOURNE);
     expression();
-                            function.rturn();
+                            declaration.checkReturnType(); function.rturn();
   }
 
 /*
@@ -528,7 +528,7 @@ public class Yaka implements YakaConstants {
       case 40:
                                                                                Yaka.yvm.reserveRetour();
         argumentsFonction();
-                                                                                                                                 Yaka.function.call();
+                                                                                                                                 Yaka.expression.checkParams(); Yaka.function.call();
         break;
       default:
         jj_la1[21] = jj_gen;
@@ -561,6 +561,7 @@ public class Yaka implements YakaConstants {
     case 40:
     case 51:
       expression();
+                      Yaka.expression.incParamCount();
       label_10:
       while (true) {
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -573,6 +574,7 @@ public class Yaka implements YakaConstants {
         }
         jj_consume_token(41);
         expression();
+                                                                             Yaka.expression.incParamCount();
       }
       break;
     default:

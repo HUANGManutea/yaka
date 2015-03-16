@@ -6,10 +6,14 @@ import main.Constantes.*;
 public class Expression {
 	private Stack<Type> typeStack;
 	private Stack<String> opStack;
+	private Stack<IdFunc> functions;
+	private Stack<Integer> functionParamCounts;
 	
 	public Expression(){
 		opStack = new Stack<String>();
 		typeStack = new Stack<Type>();
+		functions = new Stack<IdFunc>();
+		functionParamCounts = new Stack<Integer>();
 	}
 	
 	private void addType(Type t){
@@ -24,6 +28,8 @@ public class Expression {
 			Yaka.yvm.iload(((IdVar)i).offset);
 		} else if (i instanceof IdFunc) {
 			Yaka.function.prepareCall(ident);
+			functions.push((IdFunc) i);
+			functionParamCounts.push(0);
 		}
 		
 		addType(i.type);
@@ -98,7 +104,31 @@ public class Expression {
 		}
 	}
 	
-	public void checkType(){
+	public void incParamCount() {
+		int n = functionParamCounts.pop();
+		n++;
+		functionParamCounts.push(n);
+	}
+	
+	public void checkParams() {
+		int n = functionParamCounts.pop();
+		IdFunc f = functions.pop();
+		
+		if (f.paramTypes.size() != n) {
+			System.out.println("Erreur : nombre de parametres incorrect, ligne " + Yaka.token.beginLine);
+			Yaka.yvm.erreur();
+		} else {
+			for (int i=0; i<n; i++) {
+				Type t = typeStack.pop();
+				if (f.paramTypes.get(n-1-i) != t) {
+					System.out.println("Erreur : Parametre de type incorrect, ligne " + Yaka.token.beginLine);
+					Yaka.yvm.erreur();
+				}
+			}
+		}
+	}
+	
+	public void checkType() {
 		String op = opStack.pop();
 		Type b = typeStack.pop();
 		Type a = typeStack.pop();
