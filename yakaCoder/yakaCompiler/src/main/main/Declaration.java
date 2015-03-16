@@ -9,11 +9,13 @@ public class Declaration {
 	private String currentIdent;
 	private Type currentType;
 	private IdFunc currentFunction;
+	private boolean mainFunction;
 	private int countVar;
 	private List<String> paramNames;
 	private List<Type> paramTypes;
 	
 	public Declaration() {
+		mainFunction = false;
 		countVar = 0;
 		paramNames = new ArrayList<String>();
 		paramTypes = new ArrayList<Type>();
@@ -59,11 +61,18 @@ public class Declaration {
 		currentFunction = new IdFunc(currentType);
 		Yaka.tabIdent.add(currentIdent, currentFunction);
 		Yaka.yvm.label(ident);
+		
+		if (ident.equals("main")) {
+			mainFunction = true;
+		}
 	}
 	
 	public void checkReturnType() {
 		Type t = Yaka.expression.popType();
-		if (currentFunction.type != t) {
+		if (mainFunction) {
+			System.out.println("Erreur : retour impossible dans la fonction principale, ligne " + Yaka.token.beginLine);
+			Yaka.yvm.erreur();
+		} else if (currentFunction.type != t) {
 			System.out.println("Erreur de type de retour, ligne " + Yaka.token.beginLine);
 			Yaka.yvm.erreur();
 		}
@@ -73,6 +82,7 @@ public class Declaration {
 		paramNames = new ArrayList<String>();
 		paramTypes = new ArrayList<Type>();
 		countVar = 0;
+		Yaka.tabIdent.endFunction();
 		Yaka.function.end();
 	}
 	

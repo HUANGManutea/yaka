@@ -691,7 +691,8 @@ public class YVMasm extends YVM {
 	 * @param chaine
 	 */
 	public void ecrireChaine(String chaine){
-		String asmString = chaine.substring(0, chaine.length()-1) + "$\"";
+		char quote = chaine.toCharArray()[0];
+		String asmString = chaine.substring(0, chaine.length()-1) + "$" + quote;
 		if (Yaka.verbose != 0) {
 			if (Yaka.verbose == 2) System.out.println("\t; ecrireChaine " + chaine);
 			System.out.println(".DATA");

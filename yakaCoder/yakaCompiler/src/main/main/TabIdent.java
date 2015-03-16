@@ -11,6 +11,10 @@ public class TabIdent {
 		table = new HashMap<String, Ident>();
 	}
 	
+	public void endFunction() {
+		currentFunction = null;
+	}
+	
 	public Ident find(String key) {
 		if (currentFunction != null && currentFunction.tabIdent.exists(key)) return currentFunction.tabIdent.find(key);
 		else return table.get(key); 
