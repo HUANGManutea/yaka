@@ -20,9 +20,12 @@ public class Expression {
 		Ident i = Yaka.tabIdent.find(ident);
 		if (i instanceof IdConst) {
 			Yaka.yvm.iconst(((IdConst)i).value);
-		} else {
+		} else if (i instanceof IdVar) {
 			Yaka.yvm.iload(((IdVar)i).offset);
+		} else if (i instanceof IdFunc) {
+			Yaka.function.prepareCall(ident);
 		}
+		
 		addType(i.type);
 	}
 	

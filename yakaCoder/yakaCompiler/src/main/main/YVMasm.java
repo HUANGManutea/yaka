@@ -62,8 +62,6 @@ public class YVMasm extends YVM {
 		System.out.println(".586");
 		System.out.println("");
 		System.out.println(".CODE");
-		System.out.println("debut :");
-		System.out.println("\tSTARTUPCODE");
 		
 		Ecriture.ecrireStringln(f,"\t; entete");
 		Ecriture.ecrireStringln(f,"extrn lirent:proc,");
@@ -75,6 +73,15 @@ public class YVMasm extends YVM {
 		Ecriture.ecrireStringln(f,".586");
 		Ecriture.ecrireStringln(f,"");
 		Ecriture.ecrireStringln(f,".CODE");
+	}
+	
+	/**
+	 * Début du code
+	 */
+	public void startCode() {
+		System.out.println("debut :");
+		System.out.println("\tSTARTUPCODE");
+		
 		Ecriture.ecrireStringln(f,"debut :");
 		Ecriture.ecrireStringln(f,"\tSTARTUPCODE");
 		Ecriture.ecrireStringln(f,"");
@@ -609,12 +616,12 @@ public class YVMasm extends YVM {
 	 * @param nbVars	Nombre de variables mémoire à allouer
 	 */
 	public void fermeBloc(int nbVars){
-		System.out.println("leave");
-		System.out.println("ret " + nbVars * 2);
+		System.out.println("\tleave");
+		System.out.println("\tret " + nbVars * 2);
 		
-		Ecriture.ecrireStringln(f,"; fermeBloc " + nbVars * 2);
-		Ecriture.ecrireStringln(f,"leave");
-		Ecriture.ecrireStringln(f,"ret " + nbVars * 2);
+		Ecriture.ecrireStringln(f,"\t; fermeBloc " + nbVars * 2);
+		Ecriture.ecrireStringln(f,"\tleave");
+		Ecriture.ecrireStringln(f,"\tret " + nbVars * 2);
 		Ecriture.ecrireStringln(f,"");
 	}
 	

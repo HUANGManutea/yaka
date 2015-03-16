@@ -1,11 +1,23 @@
 package main;
 
-import main.Constantes.Type;
+import java.util.ArrayList;
+import java.util.List;
+
+import main.Constantes.*;
 
 public class Declaration {
 	private String currentIdent;
 	private Type currentType;
+	private IdFunc currentFunction;
 	private int countVar;
+	private List<String> paramNames;
+	private List<Type> paramTypes;
+	
+	public Declaration() {
+		countVar = 0;
+		paramNames = new ArrayList<String>();
+		paramTypes = new ArrayList<Type>();
+	}
 	
 	public void setCurrentIdent(String ident){
 		if (!Yaka.tabIdent.exists(ident)) {
@@ -42,7 +54,36 @@ public class Declaration {
 		}
 	}
 	
-	public void declareVar(String ident){
+	public void declareFunction(String ident) {
+		setCurrentIdent(ident);
+		currentFunction = new IdFunc(currentType);
+		Yaka.tabIdent.add(currentIdent, currentFunction);
+		Yaka.yvm.label(ident);
+	}
+	
+	public void endFunction() {
+		paramNames = new ArrayList<String>();
+		paramTypes = new ArrayList<Type>();
+		countVar = 0;
+		Yaka.function.end();
+	}
+	
+	public void addPara(String ident) {
+		setCurrentIdent(ident);
+		paramNames.add(currentIdent);
+		paramTypes.add(currentType);
+		Yaka.function.incParamCount();
+	}
+	
+	public void declareParams() {
+		for (int i=1; i<=paramNames.size(); i++) {
+			int offset = paramNames.size()*2 + 4 - (i*2);
+			IdVar para = new IdVar(paramTypes.get(i-1), offset);
+			Yaka.tabIdent.add(paramNames.get(i-1), para);
+		}
+	}
+	
+	public void declareVar(String ident) {
 		setCurrentIdent(ident);
 		countVar++;
 		IdVar v = new IdVar(currentType, countVar*-2);
@@ -50,6 +91,6 @@ public class Declaration {
 	}
 	
 	public void reserveMemory() {
-		Yaka.yvm.ouvrePrinc(countVar);
+		Yaka.yvm.ouvreBloc(countVar);
 	}
 }
